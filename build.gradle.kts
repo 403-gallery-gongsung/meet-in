@@ -150,6 +150,10 @@ configureByTypeHaving("boot", "mvc") {
 configureByTypeHaving("boot", "application") {
     apply(plugin = "org.springframework.boot")
 
+    dependencies {
+        runtimeOnly("com.mysql:mysql-connector-j")
+    }
+
     tasks.withType<BootJar> {
         enabled = false
     }
