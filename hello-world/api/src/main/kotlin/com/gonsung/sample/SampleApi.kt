@@ -1,9 +1,9 @@
 package com.gonsung.sample
 
 import com.gongsung.sample.SampleIdentity
-import com.gongsung.sample.SampleLookUpService
 import com.gongsung.sample.SampleModel
-import com.gongsung.sample.SampleService
+import com.gongsung.sample.lookup.SampleLookUpService
+import com.gongsung.sample.mutation.SampleService
 import com.gonsung.sample.dto.SampleCreateRequest
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping

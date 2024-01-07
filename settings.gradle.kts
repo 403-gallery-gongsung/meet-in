@@ -8,6 +8,7 @@ include("hello-world:internal-api-client")
 include("hello-world:model")
 include("hello-world:repository")
 include("hello-world:service")
+include("hello-world:use-case")
 
 pluginManagement {
     buildscript {
