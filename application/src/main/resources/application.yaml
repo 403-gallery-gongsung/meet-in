@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3305/gongsung?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 1234
+    url: jdbc:mysql://localhost:3305/<database name>?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: <username>
+    password: <password>
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       pool-name: Hikari
