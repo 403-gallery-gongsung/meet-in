@@ -13,7 +13,7 @@ plugins {
     `java-library`
     publishing
 
-    id("org.springframework.boot") version "3.2.1"
+    id("org.springframework.boot") version "3.2.1" apply false
     id("io.spring.dependency-management") version "1.1.4"
 
     id("com.linecorp.build-recipe-plugin") version "1.1.1"
@@ -35,7 +35,7 @@ allprojects {
         lockAllConfigurations()
     }
 
-    configurations.all( {
+    configurations.all({
         resolutionStrategy.cacheChangingModulesFor(10, TimeUnit.SECONDS)
     })
 }
@@ -64,9 +64,10 @@ configureByTypeHaving("kotlin") {
         withType<KotlinJvmCompile> {
             kotlinOptions {
                 jvmTarget = javaVersion
-                freeCompilerArgs = listOf(
-                    "-Xjsr305=strict",
-                )
+                freeCompilerArgs =
+                    listOf(
+                        "-Xjsr305=strict",
+                    )
             }
         }
 
@@ -144,12 +145,15 @@ configureByTypeHaving("boot", "jpa", "repository", "querydsl") {
 configureByTypeHaving("boot", "mvc") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-web")
-//        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
     }
 }
 
 configureByTypeHaving("boot", "application") {
     apply(plugin = "org.springframework.boot")
+
+    dependencies {
+        runtimeOnly("com.mysql:mysql-connector-j")
+    }
 
     tasks.withType<BootJar> {
         enabled = false

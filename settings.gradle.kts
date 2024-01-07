@@ -2,6 +2,13 @@ rootProject.name = "meet-in"
 
 include(":application")
 
+include("hello-world:api")
+include("hello-world:internal-api")
+include("hello-world:internal-api-client")
+include("hello-world:model")
+include("hello-world:repository")
+include("hello-world:service")
+
 pluginManagement {
     buildscript {
         repositories {
