@@ -1,3 +1,3 @@
 dependencies {
-    implementation(project(":hello-world:service"))
+    implementation(project(":hello-world:use-case"))
 }

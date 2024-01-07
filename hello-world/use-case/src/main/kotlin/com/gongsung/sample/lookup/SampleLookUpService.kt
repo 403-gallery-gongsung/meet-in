@@ -1,4 +1,7 @@
-package com.gongsung.sample
+package com.gongsung.sample.lookup
+
+import com.gongsung.sample.SampleIdentity
+import com.gongsung.sample.SampleModel
 
 interface SampleLookUpService {
     fun find(sampleIdentity: SampleIdentity): SampleModel?
