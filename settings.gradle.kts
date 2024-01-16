@@ -30,3 +30,9 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
+include("company")
+include("company:model")
+include("company:repository")
+include("company:api")
+include("company:use-case")
+include("company:service")
