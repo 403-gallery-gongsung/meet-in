@@ -30,3 +30,12 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
+include("user:api")
+include("user:internal-api")
+include("user:repository")
+include("user:internal-api-client")
+include("user:service")
+include("user:model")
+include("user:use-case")
+include("user:jwtdemo")
+findProject(":user:jwtdemo")?.name = "jwtdemo"
