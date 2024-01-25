@@ -10,9 +10,9 @@ import jakarta.validation.constraints.Pattern
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-data class UserDto(
+data class UserDtoRequest(
 
-    val id: Long?,
+    var id: Long?,
 
     @field:NotBlank
     val loginId: String,

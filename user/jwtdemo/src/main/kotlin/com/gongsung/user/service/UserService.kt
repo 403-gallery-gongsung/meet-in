@@ -5,7 +5,7 @@ import com.gongsung.common.authority.JwtTokenProvider
 import com.gongsung.common.authority.TokenInfo
 import com.gongsung.common.exception.InvalidInputException
 import com.gongsung.user.domain.dto.LoginDto
-import com.gongsung.user.domain.dto.UserDto
+import com.gongsung.user.domain.dto.UserDtoRequest
 import com.gongsung.user.domain.dto.UserDtoResponse
 import com.gongsung.user.domain.entity.UserEntity
 import com.gongsung.user.domain.entity.UserRole
@@ -26,7 +26,7 @@ class UserService(
     private val authenticationManagerBuilder: AuthenticationManagerBuilder,
     private val jwtTokenProvider: JwtTokenProvider
 ) {
-    fun signUp( userDto: UserDto): String {
+    fun signUp(userDto: UserDtoRequest): String {
         var user: UserEntity? = userRepository.findByLoginId(userDto.loginId)
         if (user != null) {
             throw InvalidInputException("loginId", "이미 등록된 ID 입니다.")
@@ -53,5 +53,12 @@ class UserService(
             userRepository.findByIdOrNull(id) ?: throw InvalidInputException("id", "회원(${id})가 존재하지 않는 유저입니다")
 
         return user.toDto()
+    }
+
+    fun updateMyInfo(userDto: UserDtoRequest): String {
+        val user = userDto.toEntity()
+
+        userRepository.save(user)
+        return "수정 완료되었습니다."
     }
 }
