@@ -1,5 +1,6 @@
 package com.gongsung.user.domain.entity
 
+import com.gongsung.user.domain.dto.UserDtoResponse
 import com.gongsung.user.domain.enums.Gender
 import com.gongsung.user.domain.enums.Role
 import jakarta.persistence.Column
@@ -16,6 +17,7 @@ import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
 import org.hibernate.annotations.Fetch
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Entity
 class UserEntity(
@@ -46,8 +48,18 @@ class UserEntity(
 
     val deleteStatus: Boolean
 ){
+    fun toDto(): UserDtoResponse = UserDtoResponse(id = id!!,
+        loginId = loginId,
+        birthDate = birthDate.formatDate(),
+        gander = gender.description,
+        email = email,
+        name = name)
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     val userRole: List<UserRole>? = null
+
+    private fun LocalDate.formatDate(): String =
+        this.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
 }
 
 @Entity

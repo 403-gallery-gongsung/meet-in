@@ -4,8 +4,11 @@ import com.gongsung.common.authority.TokenInfo
 import com.gongsung.user.domain.dto.BaseResponse
 import com.gongsung.user.domain.dto.LoginDto
 import com.gongsung.user.domain.dto.UserDto
+import com.gongsung.user.domain.dto.UserDtoResponse
 import com.gongsung.user.service.UserService
 import jakarta.validation.Valid
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -26,4 +29,12 @@ class UserController(private val userService: UserService) {
 
         return BaseResponse(data = tokenInfo)
     }
+
+    @GetMapping("/info/{id}")
+    fun searchMyInfo(@PathVariable id: Long): BaseResponse<UserDtoResponse> {
+        val response = userService.searchMyInfo(id)
+
+        return BaseResponse(data = response)
+    }
 }
+

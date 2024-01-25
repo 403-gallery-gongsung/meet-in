@@ -2,6 +2,7 @@ package com.gongsung.common.config
 
 import com.gongsung.common.authority.JwtAuthenticationFilter
 import com.gongsung.common.authority.JwtTokenProvider
+import com.gongsung.user.domain.enums.Role
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -22,7 +23,8 @@ class SecurityConfig(
             .csrf{it.disable()}
             .sessionManagement{ it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)}
             .authorizeHttpRequests{
-                it.requestMatchers("/api/user/signup").anonymous()
+                it.requestMatchers("/api/user/signup","/api/user/signin").anonymous()
+                    .requestMatchers("/api/user/**").hasAnyRole(Role.USER.toString(), Role.COMPANY.toString())
                     .anyRequest().permitAll()
             }
             .addFilterBefore(
