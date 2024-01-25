@@ -2,11 +2,13 @@ package com.gongsung.user.controller
 
 import com.gongsung.common.authority.TokenInfo
 import com.gongsung.user.domain.dto.BaseResponse
+import com.gongsung.user.domain.dto.CustomUser
 import com.gongsung.user.domain.dto.LoginDto
 import com.gongsung.user.domain.dto.UserDto
 import com.gongsung.user.domain.dto.UserDtoResponse
 import com.gongsung.user.service.UserService
 import jakarta.validation.Valid
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -30,9 +32,10 @@ class UserController(private val userService: UserService) {
         return BaseResponse(data = tokenInfo)
     }
 
-    @GetMapping("/info/{id}")
+    @GetMapping("/info")
     fun searchMyInfo(@PathVariable id: Long): BaseResponse<UserDtoResponse> {
-        val response = userService.searchMyInfo(id)
+        val userId = (SecurityContextHolder.getContext().authentication.principal as CustomUser).userId
+        val response = userService.searchMyInfo(userId)
 
         return BaseResponse(data = response)
     }

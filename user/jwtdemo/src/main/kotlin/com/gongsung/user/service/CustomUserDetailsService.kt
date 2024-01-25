@@ -1,5 +1,6 @@
 package com.gongsung.user.service
 
+import com.gongsung.user.domain.dto.CustomUser
 import com.gongsung.user.domain.entity.UserEntity
 import com.gongsung.user.repository.UserRepository
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -21,7 +22,8 @@ class CustomUserDetailsService(
 
 
     private fun createUserDetails(userEntity: UserEntity): UserDetails =
-        User(
+        CustomUser(
+            userEntity.id!!,
             userEntity.loginId,
             passwordEncoder.encode(userEntity.password),
             userEntity.userRole!!.map { SimpleGrantedAuthority("ROLE_${it.role}") },
