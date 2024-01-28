@@ -148,6 +148,14 @@ configureByTypeHaving("boot", "mvc") {
     }
 }
 
+configureByTypeHaving("client") {
+    val feignClientVersion = "4.1.0"
+
+    dependencies {
+        compileOnly("org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0")
+    }
+}
+
 configureByTypeHaving("boot", "application") {
     apply(plugin = "org.springframework.boot")
 
