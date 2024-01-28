@@ -53,3 +53,10 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
+include("feed")
+include("feed:model")
+include("feed:internal-api")
+include("feed:service")
+include("feed:use-case")
+include("feed:repository")
+include("feed:persist")

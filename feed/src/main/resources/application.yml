@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    group:
+      local: local-repository
+  config:
+    import:
+      - application-repository.yml
+server:
+  port: 8082
