@@ -10,6 +10,17 @@ include("hello-world:repository")
 include("hello-world:service")
 include("hello-world:use-case")
 
+include("user:api")
+include("user:internal-api")
+include("user:repository")
+include("user:internal-api-client")
+include("user:service")
+include("user:model")
+include("user:use-case")
+include("user:persist")
+
+include("user:jwtdemo")         // will remove
+
 pluginManagement {
     buildscript {
         repositories {
@@ -30,12 +41,3 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
-include("user:api")
-include("user:internal-api")
-include("user:repository")
-include("user:internal-api-client")
-include("user:service")
-include("user:model")
-include("user:use-case")
-include("user:jwtdemo")
-findProject(":user:jwtdemo")?.name = "jwtdemo"
