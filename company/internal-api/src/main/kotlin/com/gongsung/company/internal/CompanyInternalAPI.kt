@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RestController("/internal/v1/company")
+@RestController
+@RequestMapping("/internal/v1/company")
 class CompanyInternalAPI(
     @Autowired private val commandUseCase: CommandCompanyUseCase,
     @Autowired private val queryCompanyUseCase: QueryCompanyUseCase
