@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 @EntityScan
 class CompanyRepositoryConfiguration {
 
-
     @Bean
     fun companyMemoryRepository(): CompanyMemoryRepository {
         return CompanyMemoryRepository()
@@ -20,5 +19,4 @@ class CompanyRepositoryConfiguration {
     fun companyRepository(companyMemoryRepository: CompanyMemoryRepository): CompanyRepository {
         return CompanyRepository(companyMemoryRepository)
     }
-
 }

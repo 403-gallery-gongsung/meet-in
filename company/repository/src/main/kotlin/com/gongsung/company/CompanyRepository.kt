@@ -5,7 +5,6 @@ import com.gongsung.company.persist.QueryCompanyPersist
 import com.gonsung.company.Company
 import com.gonsung.company.CompanyProps
 
-
 class CompanyRepository(
     private val companyMemoryRepository: CompanyMemoryRepository
 ) : CommandCompanyPersist, QueryCompanyPersist {

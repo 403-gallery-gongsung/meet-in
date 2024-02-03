@@ -29,5 +29,4 @@ interface CompanyFeignClient : CommandCompanyUseCase, QueryCompanyUseCase {
         @PathVariable("companyId") companyId: Long,
         companyRequest: CompanyRequest
     ): ResponseEntity<Company>
-
 }

@@ -11,13 +11,11 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
 
-
 class CompanyServiceTest {
-
 
     @Test
     fun `id로 Company 조회가 가능하다`() {
-        //given
+        // given
         val id = 1L
         val expected = Company.of(
             companyIdentity = CompanyIdentity.of(id),
@@ -35,18 +33,16 @@ class CompanyServiceTest {
         // when
         val result = sut.getCompanyById(CompanyIdentity.of(id))
 
-        //then
+        // then
         Assertions.assertEquals(id, result.id)
         Assertions.assertEquals(expected, result)
-
     }
-
     @Test
     fun `Company를 조회할 때 데이터가 없으면 예외를 반환한다`() {
-        //given
+        // given
         val id = 1L
         val queryCompanyPersist = mock<QueryCompanyPersist>() {
-            on { getCompanyById(id) } doThrow RuntimeException("[Company-${id}] Not Exist")
+            on { getCompanyById(id) } doThrow RuntimeException("[Company-$id] Not Exist")
         }
         val commandCompanyPersist = mock<CommandCompanyPersist>()
         val sut = CompanyService(queryCompanyPersist, commandCompanyPersist)
@@ -59,7 +55,7 @@ class CompanyServiceTest {
 
     @Test
     fun `Company를 저장할 수 있다`() {
-        //given
+        // given
         val companyProps = CompanyProps.of(
             name = "Gongsung",
             address = "seoul",
@@ -78,38 +74,37 @@ class CompanyServiceTest {
         }
         val sut = CompanyService(queryCompanyPersist, commandCompanyPersist)
 
-        //when
+        // when
         sut.creatCompany(companyProps)
         val result = sut.getCompanyById(CompanyIdentity.of(1L))
 
-        //then
+        // then
         Assertions.assertEquals(1L, result.id)
         Assertions.assertEquals(expected, result)
-
     }
 
     @Test
     fun `Company의 id로 삭제가 가능하다`() {
-        //given
+        // given
         val id = 1L
         val commandCompanyPersist = mock<CommandCompanyPersist>() {
             on { deleteCompanyById(id) } doReturn true
         }
         val queryCompanyPersist = mock<QueryCompanyPersist>() {
-            on { getCompanyById(id) } doThrow RuntimeException("[Company-${id}] Not Exist")
+            on { getCompanyById(id) } doThrow RuntimeException("[Company-$id] Not Exist")
         }
         val sut = CompanyService(queryCompanyPersist, commandCompanyPersist)
 
-        //when
+        // when
         val result = sut.deleteCompany(CompanyIdentity.of(id))
 
-        //then
+        // then
         Assertions.assertTrue(result)
     }
 
     @Test
     fun `Company의 정보를 수정할 수 있다`() {
-        //given
+        // given
         val id = 1L
         val before = Company.of(
             companyIdentity = CompanyIdentity.of(id),
@@ -133,12 +128,11 @@ class CompanyServiceTest {
         }
         val sut = CompanyService(queryCompanyPersist, commandCompanyPersist)
 
-        //when
+        // when
         val result = sut.updateCompany(after)
 
-        //then
+        // then
         Assertions.assertEquals(after, result)
         Assertions.assertNotEquals(before, result)
-
     }
 }
