@@ -1,19 +1,17 @@
 package com.gongsung.company
 
 import com.gongsung.company.entity.CompanyEntity
-import com.gongsung.company.persist.CommandCompanyPersist
-import com.gongsung.company.persist.QueryCompanyPersist
 import com.gonsung.company.Company
 import com.gonsung.company.CompanyProps
 import jakarta.persistence.EntityNotFoundException
 
-class CompanyMemoryRepository : CommandCompanyPersist, QueryCompanyPersist {
-    private val repository = mutableMapOf<Long, Company>()
-    override fun getCompanyById(id: Long): Company {
+class CompanyMemoryRepository {
+    private val repository = mutableMapOf<Long, CompanyEntity>()
+    fun getCompanyById(id: Long): Company {
         return repository[id] ?: throw EntityNotFoundException("[Company-${id}] Not Exist")
     }
 
-    override fun createCompany(companyProps: CompanyProps): Company {
+    fun createCompany(companyProps: CompanyProps): Company {
         return synchronized(repository) {
             companyProps.let(CompanyEntity::ofProps)
                 .copy(
@@ -24,15 +22,20 @@ class CompanyMemoryRepository : CommandCompanyPersist, QueryCompanyPersist {
         }
     }
 
-    override fun deleteCompanyById(id: Long): Boolean {
+    fun deleteCompanyById(id: Long): Boolean {
         return repository.remove(id) != null
     }
 
-    override fun updateCompany(company: Company): Company {
+    fun updateCompany(company: Company): Company {
         return synchronized(repository) {
-            if (repository[company.companyIdentity] == null) throw Exception("[Company-${company.companyIdentity}] Not Exist")
-            repository[company.companyIdentity] = company
-            company
+            repository[company.id]?.let {
+                it.copy(
+                    address = company.address,
+                    name = company.name,
+                ).also { updatedCompany ->
+                    repository[company.id] = updatedCompany
+                }
+            } ?: throw Exception("[Company-${company.id}] Not Exist")
         }
     }
 }

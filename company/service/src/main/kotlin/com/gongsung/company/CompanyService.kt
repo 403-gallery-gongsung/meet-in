@@ -7,13 +7,15 @@ import com.gongsung.company.query.QueryCompanyUseCase
 import com.gonsung.company.Company
 import com.gonsung.company.CompanyIdentity
 import com.gonsung.company.CompanyProps
+import org.springframework.stereotype.Service
 
+@Service
 class CompanyService(
     private val queryCompanyPersist: QueryCompanyPersist,
     private val commandCompanyPersist: CommandCompanyPersist
 ) : CommandCompanyUseCase, QueryCompanyUseCase {
     override fun getCompanyById(id: CompanyIdentity): Company {
-        return queryCompanyPersist.getCompanyById(id.companyIdentity)
+        return queryCompanyPersist.getCompanyById(id.id)
     }
 
     override fun creatCompany(companyProps: CompanyProps): Company {
@@ -21,7 +23,7 @@ class CompanyService(
     }
 
     override fun deleteCompany(id: CompanyIdentity): Boolean {
-        return commandCompanyPersist.deleteCompanyById(id.companyIdentity)
+        return commandCompanyPersist.deleteCompanyById(id.id)
     }
 
     override fun updateCompany(company: Company): Company {

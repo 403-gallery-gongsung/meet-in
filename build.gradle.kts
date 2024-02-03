@@ -35,9 +35,11 @@ allprojects {
         lockAllConfigurations()
     }
 
-    configurations.all({
-        resolutionStrategy.cacheChangingModulesFor(10, TimeUnit.SECONDS)
-    })
+    configurations.all(
+        {
+            resolutionStrategy.cacheChangingModulesFor(10, TimeUnit.SECONDS)
+        },
+    )
 }
 
 configureByTypeHaving("kotlin") {
@@ -157,5 +159,12 @@ configureByTypeHaving("boot", "application") {
 
     tasks.withType<BootJar> {
         enabled = false
+    }
+}
+
+configureByTypeHaving("client") {
+    val feignClientVersion = "4.1.0"
+    dependencies {
+        implementation("org.springframework.cloud:spring-cloud-starter-openfeign:${feignClientVersion}")
     }
 }

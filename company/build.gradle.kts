@@ -7,5 +7,7 @@ plugins {
 }
 
 dependencies {
-
+    implementation(project(":company:internal-api"))
+    implementation(project(":company:service"))
+    implementation(project(":company:repository"))
 }

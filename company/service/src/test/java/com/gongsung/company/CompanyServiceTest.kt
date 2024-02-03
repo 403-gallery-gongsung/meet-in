@@ -36,7 +36,7 @@ class CompanyServiceTest {
         val result = sut.getCompanyById(CompanyIdentity.of(id))
 
         //then
-        Assertions.assertEquals(id, result.companyIdentity)
+        Assertions.assertEquals(id, result.id)
         Assertions.assertEquals(expected, result)
 
     }
@@ -83,7 +83,7 @@ class CompanyServiceTest {
         val result = sut.getCompanyById(CompanyIdentity.of(1L))
 
         //then
-        Assertions.assertEquals(1L, result.companyIdentity)
+        Assertions.assertEquals(1L, result.id)
         Assertions.assertEquals(expected, result)
 
     }

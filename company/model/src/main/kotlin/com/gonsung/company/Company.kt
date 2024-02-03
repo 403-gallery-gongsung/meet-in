@@ -4,7 +4,7 @@ interface Company : CompanyProps, CompanyIdentity {
     companion object {
         fun of(companyIdentity: CompanyIdentity, props: CompanyProps): Company =
             CompanyImpl(
-                companyIdentity.companyIdentity,
+                companyIdentity.id,
                 props.name,
                 props.address,
             )
@@ -24,7 +24,7 @@ interface CompanyProps {
 }
 
 interface CompanyIdentity {
-    val companyIdentity: Long
+    val id: Long
 
     companion object {
         fun of(companyIdentity: Long): CompanyIdentity = CompanyIdentityImpl(companyIdentity)
@@ -37,11 +37,11 @@ data class CompanyPropsImpl(
 ) : CompanyProps
 
 data class CompanyIdentityImpl(
-    override val companyIdentity: Long,
+    override val id: Long,
 ) : CompanyIdentity
 
 data class CompanyImpl(
-    override val companyIdentity: Long,
+    override val id: Long,
     override val name: String,
     override val address: String,
 ) : Company
