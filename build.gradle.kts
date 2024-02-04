@@ -25,6 +25,7 @@ plugins {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     kotlin("kapt") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
 }
 
 val kotlinVersion = "1.9.21"
@@ -134,6 +135,7 @@ configureByTypeHaving("boot", "jpa", "repository") {
 
 configureByTypeHaving("boot", "jpa", "repository", "querydsl") {
     val queryDslVersion = "5.0.0:jakarta"
+    apply(plugin = "kotlin-jpa")
 
     dependencies {
         implementation("com.querydsl:querydsl-jpa:$queryDslVersion")
@@ -148,7 +150,7 @@ configureByTypeHaving("boot", "mvc") {
     }
 }
 
-configureByTypeHaving("security"){
+configureByTypeHaving("security") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-validation:3.1.0")
         implementation("org.springframework.boot:spring-boot-starter-security:3.1.0")
