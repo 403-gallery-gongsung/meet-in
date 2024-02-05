@@ -7,7 +7,6 @@ import com.gongsung.user.query.QueryUseCase
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 
-@Service
 class UserService(
     private val commandPersist: CommandPersist
 ) : CommandUseCase {

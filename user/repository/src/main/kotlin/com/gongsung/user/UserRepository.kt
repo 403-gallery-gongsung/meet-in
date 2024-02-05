@@ -6,7 +6,6 @@ import com.gongsung.user.persist.QueryPersist
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
-@Repository
 class UserRepository : CommandPersist, QueryPersist {
     override fun create(user: UserProps): User {
         TODO("save User in database")
