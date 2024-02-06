@@ -11,6 +11,14 @@ include("hello-world:persist")
 include("hello-world:service")
 include("hello-world:use-case")
 
+include("auth:api")
+include("auth:internal-api-client")
+include("auth:model")
+include("auth:service")
+include("auth:persist")
+include("auth:repository")
+include("auth:use-case")
+
 pluginManagement {
     buildscript {
         repositories {
@@ -31,3 +39,4 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
+
