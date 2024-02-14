@@ -1,3 +1,5 @@
+package com.gongsung.user
+
 import com.gongsung.user.UserRepository
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.annotation.Bean
