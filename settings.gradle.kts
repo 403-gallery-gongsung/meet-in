@@ -19,6 +19,7 @@ include("company:service")
 include("company:persist")
 include("company:internal-api")
 include("company:internal-api-client")
+include("common")
 
 pluginManagement {
     buildscript {
