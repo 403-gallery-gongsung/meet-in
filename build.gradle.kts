@@ -176,3 +176,9 @@ configureByTypeHaving("client") {
         implementation("org.springframework.cloud:spring-cloud-starter-openfeign:${feignClientVersion}")
     }
 }
+
+configureByTypeHaving("redis") {
+    dependencies {
+        implementation("org.redisson:redisson-spring-boot-starter:3.26.1")
+    }
+}
