@@ -4,10 +4,16 @@ import com.gongsung.connection.command.ConnectionRequestCommandUseCase
 import com.gongsung.connection.query.ConnectionRequestQueryUseCase
 import com.gongsung.user.dto.ConnectionRequestDto
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/internal/v1/connection")
+@RequestMapping("/api/internal/v1/connection")
 class ConnectionInternalApi(
     private val connectionRequestCommandUseCase: ConnectionRequestCommandUseCase,
     private val connectionRequestQueryUseCase: ConnectionRequestQueryUseCase
