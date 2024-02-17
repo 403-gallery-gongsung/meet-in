@@ -2,8 +2,10 @@ package com.gongsung.connection
 
 import com.gongsung.connection.command.ConnectionRequestCommandUseCase
 import com.gongsung.connection.query.ConnectionRequestQueryUseCase
+import com.gongsung.follow.FollowService
 import com.gongsung.user.ConnectionRequest
 import com.gongsung.user.ConnectionRequestProps
+import com.gongsung.user.FollowToUserProps
 import com.gongsung.user.UserIdentity
 import com.gongsung.user.enums.ConnectionRequestStatus
 import com.gongsung.user.persist.connection.ConnectionRequestCommandPersist
@@ -13,7 +15,8 @@ import org.springframework.stereotype.Service
 @Service
 class ConnectionRequestService(
     private val connectionRequestCommandPersist: ConnectionRequestCommandPersist,
-    private val connectionRequestQueryPersist: ConnectionRequestQueryPersist
+    private val connectionRequestQueryPersist: ConnectionRequestQueryPersist,
+    private val followService: FollowService
 ) : ConnectionRequestCommandUseCase, ConnectionRequestQueryUseCase {
 
     override fun getAllConnectionByUserId(userIdentity: UserIdentity): List<ConnectionRequest> {
@@ -41,6 +44,14 @@ class ConnectionRequestService(
     }
 
     override fun update(connectionRequestProps: ConnectionRequestProps): ConnectionRequest {
+        if (connectionRequestProps.status == ConnectionRequestStatus.ACCEPTED) {
+            followService.followToUser(
+                FollowToUserProps.of(
+                    fromUserId = connectionRequestProps.fromUserId,
+                    toUserId = connectionRequestProps.toUserId,
+                )
+            )
+        }
         return connectionRequestCommandPersist.update(connectionRequestProps)
     }
 }
