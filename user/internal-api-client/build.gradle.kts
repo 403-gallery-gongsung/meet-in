@@ -1,3 +1,4 @@
 dependencies {
-    implementation(project(":user:use-case"))
+    implementation(project(":user:persist"))
+    implementation(project(":user:model"))
 }
