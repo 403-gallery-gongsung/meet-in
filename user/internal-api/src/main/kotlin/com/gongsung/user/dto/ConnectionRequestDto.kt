@@ -7,5 +7,4 @@ data class ConnectionRequestDto(
     override val fromUserId: Long,
     override val toUserId: Long,
     override val status: ConnectionRequestStatus
-) : ConnectionRequestProps {
-}
+) : ConnectionRequestProps

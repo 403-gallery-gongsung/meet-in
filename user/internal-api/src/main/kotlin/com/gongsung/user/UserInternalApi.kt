@@ -39,7 +39,8 @@ class UserInternalApi(
 
     @PutMapping("{id}")
     fun updateUser(
-        @PathVariable("id") userId: Long, @RequestBody userRequest: UserInternalRequest
+        @PathVariable("id") userId: Long,
+        @RequestBody userRequest: UserInternalRequest
     ): ResponseEntity<User> {
         return User.of(identity = UserIdentity.of(userId), userRequest)
             .let {
