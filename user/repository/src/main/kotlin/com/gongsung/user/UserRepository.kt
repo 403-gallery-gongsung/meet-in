@@ -11,9 +11,11 @@ import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityNotFoundException
 import jakarta.persistence.PersistenceContext
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
+import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 
 
+@Repository
 class UserRepository(
     @PersistenceContext
     private val entityManager: EntityManager
