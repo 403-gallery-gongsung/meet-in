@@ -2,35 +2,43 @@ package com.gongsung.user
 
 
 import com.gongsung.user.entity.QUserEntity.userEntity
-import com.gongsung.user.persist.CommandPersist
-import com.gongsung.user.persist.QueryPersist
+import com.gongsung.user.entity.UserEntity
+import com.gongsung.user.persist.CommandUserPersist
+import com.gongsung.user.persist.QueryUserPersist
 import com.querydsl.jpa.impl.JPAQueryFactory
+import com.querydsl.jpa.impl.JPAUpdateClause
+import jakarta.persistence.EntityManager
+import jakarta.persistence.EntityNotFoundException
+import jakarta.persistence.PersistenceContext
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
+import org.springframework.transaction.annotation.Transactional
+
 
 class UserRepository(
-    private val jpaQueryFactory: JPAQueryFactory
-) : CommandPersist, QueryPersist, QuerydslRepositorySupport(User::class.java) {
-    override fun create(user: UserProps): User {
-        jpaQueryFactory.insert(userEntity)
-            .columns(
-                userEntity.loginId, userEntity.password, userEntity.name,
-                userEntity.introduce, userEntity.email, userEntity.birthDate, userEntity.gender,
-            )
-            .values(user.loginId, user.password, user.name, user.introduce, user.email, user.birthDate, user.gender)
-            .execute()
+    @PersistenceContext
+    private val entityManager: EntityManager
+) : CommandUserPersist, QueryUserPersist, QuerydslRepositorySupport(User::class.java) {
 
-        return jpaQueryFactory.selectFrom(userEntity)
-            .where(userEntity.loginId.eq(user.loginId))
-            .fetchOne()!!
+    private val jpaQueryFactory by lazy { JPAQueryFactory(entityManager) }
+
+    @Transactional
+    override fun createUser(user: UserProps): User {
+        return user.let(UserEntity::ofProps)
+            .let {
+                entityManager.persist(it)
+                it
+            }
     }
 
-    override fun delete(id: Long): Long {
+    @Transactional
+    override fun deleteUser(id: Long): Boolean {
         return jpaQueryFactory.delete(userEntity)
-            .where(userEntity.id.eq(id)).execute()
+            .where(userEntity.id.eq(id)).execute() == 1L
     }
 
-    override fun update(user: User): User {
-        jpaQueryFactory.update(userEntity)
+    @Transactional
+    override fun updateUser(user: User): User {
+        JPAUpdateClause(entityManager, userEntity)
             .where(userEntity.id.eq(user.userIdentity))
             .set(userEntity.loginId, user.loginId)
             .set(userEntity.password, user.password)
@@ -43,11 +51,10 @@ class UserRepository(
 
         return jpaQueryFactory.selectFrom(userEntity)
             .where(userEntity.id.eq(user.userIdentity))
-            .fetchOne()!!
-
+            .fetchOne() ?: throw EntityNotFoundException("User with id: ${user.userIdentity} not found")
     }
 
-    override fun getById(id: Long): User {
+    override fun getUserById(id: Long): User {
         return jpaQueryFactory.selectFrom(userEntity)
             .where(userEntity.id.eq(id))
             .fetchOne()!!
