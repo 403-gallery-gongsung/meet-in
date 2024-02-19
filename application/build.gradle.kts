@@ -1,3 +1,3 @@
 dependencies {
-    implementation(project(":hello-world:api"))
+    implementation(project(":user:internal-api"))
 }

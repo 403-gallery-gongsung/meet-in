@@ -19,6 +19,8 @@ include("user:model")
 include("user:use-case")
 include("user:persist")
 
+include("user:application")
+
 pluginManagement {
     buildscript {
         repositories {
@@ -32,7 +34,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()

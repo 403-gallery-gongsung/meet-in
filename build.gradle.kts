@@ -35,9 +35,9 @@ allprojects {
         lockAllConfigurations()
     }
 
-    configurations.all({
+    configurations.all {
         resolutionStrategy.cacheChangingModulesFor(10, TimeUnit.SECONDS)
-    })
+    }
 }
 
 configureByTypeHaving("kotlin") {
@@ -110,7 +110,7 @@ configureByTypeHaving("boot") {
         annotationProcessor(platform(SpringBootPlugin.BOM_COORDINATES))
 
         implementation("org.springframework.boot:spring-boot-starter")
-        implementation("org.springframework.boot:spring-boot-starter-actuator")
+        implementation("org.springframework.boot:spring-boot-starter-validation:3.2.1")
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     }
@@ -129,6 +129,8 @@ configureByTypeHaving("boot", "jpa", "repository") {
     dependencies {
         api("org.springframework.boot:spring-boot-starter-data-jpa")
         testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("javax.persistence:javax.persistence-api:2.2")
+        implementation("org.hibernate:hibernate-core:6.3.1.Final")
     }
 }
 
@@ -145,17 +147,8 @@ configureByTypeHaving("boot", "jpa", "repository", "querydsl") {
 configureByTypeHaving("boot", "mvc") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-web")
-    }
-}
+        implementation("org.springframework.boot:spring-boot-starter-actuator:3.2.1")
 
-configureByTypeHaving("security"){
-    dependencies {
-        implementation("org.springframework.boot:spring-boot-starter-validation:3.1.0")
-        implementation("org.springframework.boot:spring-boot-starter-security:3.1.0")
-
-        implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-        runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
-        runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
     }
 }
 
