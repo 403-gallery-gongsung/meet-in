@@ -1,7 +1,5 @@
 package com.gongsung.auth
 
-import com.gongsung.auth.dto.AccountType
-
 interface Account : AccountProps, AccountIdentity {
     companion object {
         fun of(identity: AccountIdentity, props: AccountProps) = AccountImpl(

@@ -1,7 +1,6 @@
 package com.gongsung.auth
 
 import com.gongsung.auth.command.CommandUseCase
-import com.gongsung.auth.dto.AccountType
 import com.gongsung.auth.persist.CommandPersist
 import com.gongsung.auth.persist.QueryPersist
 import com.gongsung.auth.query.QueryUseCase

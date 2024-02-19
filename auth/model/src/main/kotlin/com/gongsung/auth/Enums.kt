@@ -1,4 +1,4 @@
-package com.gongsung.auth.dto
+package com.gongsung.auth
 
 enum class AccountType {
     COMPANY, USER

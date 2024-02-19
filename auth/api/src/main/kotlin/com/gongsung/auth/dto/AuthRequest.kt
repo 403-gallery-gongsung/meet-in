@@ -2,6 +2,7 @@ package com.gongsung.auth.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.gongsung.auth.AccountProps
+import com.gongsung.auth.AccountType
 import jakarta.validation.constraints.NotBlank
 
 class AuthRequest(
