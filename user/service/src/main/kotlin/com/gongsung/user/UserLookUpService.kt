@@ -1,13 +1,12 @@
 package com.gongsung.user
 
-import com.gongsung.user.persist.QueryPersist
-import com.gongsung.user.query.QueryUseCase
-import org.springframework.stereotype.Service
+import com.gongsung.user.persist.QueryUserPersist
+import com.gongsung.user.query.QueryUserUseCase
 
 class UserLookUpService(
-    private val queryPersist: QueryPersist
-) : QueryUseCase {
-    override fun getById(id: UserIdentity): User {
-        return queryPersist.getById(id.userIdentity)
+    private val queryPersist: QueryUserPersist
+) : QueryUserUseCase {
+    override fun getUserById(id: UserIdentity): User {
+        return queryPersist.getUserById(id.userIdentity)
     }
 }

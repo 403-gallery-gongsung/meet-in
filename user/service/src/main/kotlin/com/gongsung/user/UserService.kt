@@ -1,24 +1,21 @@
 package com.gongsung.user
 
-import com.gongsung.user.command.CommandUseCase
-import com.gongsung.user.persist.CommandPersist
-import com.gongsung.user.persist.QueryPersist
-import com.gongsung.user.query.QueryUseCase
+import com.gongsung.user.command.CommandUserUseCase
+import com.gongsung.user.persist.CommandUserPersist
 import org.springframework.stereotype.Service
-import java.lang.RuntimeException
 
 class UserService(
-    private val commandPersist: CommandPersist
-) : CommandUseCase {
-    override fun create(user: UserProps): User {
-        return commandPersist.create(user)
+    private val commandPersist: CommandUserPersist
+) : CommandUserUseCase {
+    override fun createUser(userProps: UserProps): User {
+        return commandPersist.createUser(userProps)
     }
 
-    override fun delete(id: UserIdentity): Boolean {
-        return commandPersist.delete(id.userIdentity)
+    override fun deleteUser(id: UserIdentity): Boolean {
+        return commandPersist.deleteUser(id.userIdentity)
     }
 
-    override fun update(user: User): User {
-        return commandPersist.update(user)
+    override fun updateUser(user: User): User {
+        return commandPersist.updateUser(user)
     }
 }
