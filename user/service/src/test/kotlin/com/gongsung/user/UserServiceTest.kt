@@ -152,7 +152,7 @@ class UserServiceTest {
                 email = "gongsung123@gmail.com",
                 name = "knu",
                 birthDate = LocalDate.of(1998, 1, 5),
-                gender = Gender.MALE,
+                gender = Gender.FEMALE,
                 introduce = "yeollow world !",
             ),
         )
