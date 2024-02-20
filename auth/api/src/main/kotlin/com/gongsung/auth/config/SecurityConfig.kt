@@ -1,6 +1,6 @@
-package com.gongsung.auth.security.config
+package com.gongsung.auth.config
 
-import com.gongsung.auth.security.authority.JwtTokenProvider
+import com.gongsung.auth.authority.JwtTokenProvider
 import com.gongsung.common.authority.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+//@EnableWebFluxSecurity
 class SecurityConfig(
     private val jwtTokenProvider: JwtTokenProvider
 ) {
@@ -22,7 +23,7 @@ class SecurityConfig(
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
-                it.requestMatchers("/api/auth/signin").anonymous()
+                it.requestMatchers("/api/v1/auth/*").anonymous()
                     .anyRequest().permitAll()
             }
             .addFilterBefore(

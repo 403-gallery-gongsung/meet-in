@@ -1,5 +1,6 @@
 package com.gongsung.auth.authority
 
+import com.gongsung.auth.TokenInfo
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -18,14 +19,13 @@ import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.lang.IllegalArgumentException
-import java.time.Instant
 import java.util.*
 
 const val EXPIRATION_MILLISECONDS: Long = 1000 * 60 * 30
 
-
 @Component
 class JwtTokenProvider {
+//    Todo: ConfigurationProperties
     @Value("\${jwt.secret}")
     lateinit var secretKey: String
 
@@ -51,6 +51,7 @@ class JwtTokenProvider {
     }
 
     fun validateToken(token: String): Boolean {
+//        Todo : runCatching
         try {
             getClaims(token)
 

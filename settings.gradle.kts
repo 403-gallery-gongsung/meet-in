@@ -19,6 +19,8 @@ include("auth:persist")
 include("auth:repository")
 include("auth:use-case")
 
+include("auth:application")
+
 pluginManagement {
     buildscript {
         repositories {
@@ -32,11 +34,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
     }
 }
-

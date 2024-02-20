@@ -2,6 +2,6 @@ package com.gongsung.auth.persist
 
 import com.gongsung.auth.Account
 
-interface QueryPersist {
+interface QueryAuthPersist {
     fun getAccountById(id: Long): Account
 }

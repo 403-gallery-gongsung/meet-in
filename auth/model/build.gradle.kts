@@ -1,3 +1,1 @@
-dependencies {
-    implementation(project(":auth:api"))
-}
+dependencies { }
