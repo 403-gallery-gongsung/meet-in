@@ -1,4 +1,4 @@
-package com.gongsung.auth.security.authority
+package com.gongsung.auth.authority
 
 class TokenInfo (
     val grantType: String,

@@ -1,6 +1,6 @@
 package com.gongsung.common.authority
 
-import com.gongsung.auth.security.authority.JwtTokenProvider
+import com.gongsung.auth.authority.JwtTokenProvider
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletRequest
 import jakarta.servlet.ServletResponse

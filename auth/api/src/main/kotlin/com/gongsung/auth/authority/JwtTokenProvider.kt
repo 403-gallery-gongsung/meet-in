@@ -1,4 +1,4 @@
-package com.gongsung.auth.security.authority
+package com.gongsung.auth.authority
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
