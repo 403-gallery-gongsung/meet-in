@@ -1,0 +1,2 @@
+com.gongsung.common.exception.WebExceptionMapperAutoConfiguration
+com.gongsung.common.exception.ServletWebExceptionHandlerAutoConfiguration
