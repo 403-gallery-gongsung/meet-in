@@ -29,7 +29,7 @@ include("user:model")
 include("user:use-case")
 include("user:persist")
 
-include("user:jwtdemo")         // will remove
+include("user:jwtdemo") // will remove
 
 pluginManagement {
     buildscript {

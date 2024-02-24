@@ -21,13 +21,19 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/user")
 class UserController(private val userService: UserService) {
     @PostMapping("/signup")
-    fun signUp(@RequestBody @Valid userDto: UserDtoRequest): BaseResponse<Unit> {
+    fun signUp(
+        @RequestBody @Valid
+        userDto: UserDtoRequest,
+    ): BaseResponse<Unit> {
         val message: String = userService.signUp(userDto)
         return BaseResponse(message = message)
     }
 
     @PostMapping("/signin")
-    fun signIn(@RequestBody @Valid loginDto: LoginDto): BaseResponse<TokenInfo> {
+    fun signIn(
+        @RequestBody @Valid
+        loginDto: LoginDto,
+    ): BaseResponse<TokenInfo> {
         val tokenInfo = userService.signIn(loginDto)
 
         return BaseResponse(data = tokenInfo)
@@ -42,7 +48,10 @@ class UserController(private val userService: UserService) {
     }
 
     @PutMapping("/info")
-    fun updateMyInfo(@RequestBody @Valid userDto: UserDtoRequest): BaseResponse<Unit> {
+    fun updateMyInfo(
+        @RequestBody @Valid
+        userDto: UserDtoRequest,
+    ): BaseResponse<Unit> {
         val userId = (SecurityContextHolder.getContext().authentication.principal as CustomUser).userId
         userDto.id = userId
 
@@ -50,4 +59,3 @@ class UserController(private val userService: UserService) {
         return BaseResponse(message = result)
     }
 }
-

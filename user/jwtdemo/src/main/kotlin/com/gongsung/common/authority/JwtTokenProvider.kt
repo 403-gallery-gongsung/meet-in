@@ -15,14 +15,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.lang.IllegalArgumentException
 import java.lang.RuntimeException
 import java.util.*
-import java.util.Base64.Decoder
-import javax.crypto.SecretKey
 
 const val EXPIRATION_MILLISECONDS: Long = 1000 * 60 * 30
 
@@ -44,7 +41,7 @@ class JwtTokenProvider {
         val accessToken = Jwts.builder()
             .setSubject(authentication.name)
             .claim("auth", authorities)
-            .claim("userId",(authentication.principal as CustomUser).userId)
+            .claim("userId", (authentication.principal as CustomUser).userId)
             .setIssuedAt(now)
             .setExpiration(accessExpiration)
             .signWith(key, SignatureAlgorithm.HS256)
@@ -73,11 +70,11 @@ class JwtTokenProvider {
             return true
         } catch (exception: Exception) {
             when (exception) {
-                is SecurityException -> {}              // invalid jwt token
-                is MalformedJwtException -> {}          // invalid jwt token
-                is ExpiredJwtException -> {}            // expired jwt token
-                is UnsupportedJwtException -> {}        // unsurpported jwt token
-                is IllegalArgumentException -> {}       // jwt claims string is empty
+                is SecurityException -> {} // invalid jwt token
+                is MalformedJwtException -> {} // invalid jwt token
+                is ExpiredJwtException -> {} // expired jwt token
+                is UnsupportedJwtException -> {} // unsurpported jwt token
+                is IllegalArgumentException -> {} // jwt claims string is empty
                 else -> {}
             }
 

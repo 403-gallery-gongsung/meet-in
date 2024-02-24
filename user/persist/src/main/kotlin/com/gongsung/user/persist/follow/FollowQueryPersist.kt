@@ -8,6 +8,6 @@ interface FollowQueryPersist {
     fun getFollowByFromUserIdAndToUserId(fromUserId: UserIdentity, toUserId: UserIdentity): Follow?
     fun getFollowByFromUserIdAndToCompanyId(
         fromUserId: UserIdentity,
-        toCompanyId: Long
+        toCompanyId: Long,
     ): Follow? // companyId is Long? or companyId is CompanyIdentity?
 }

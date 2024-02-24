@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController("/internal/user")
 class UserInternalApi(
     private val commandUseCase: CommandUseCase,
-    private val queryUseCase: QueryUseCase
+    private val queryUseCase: QueryUseCase,
 ) {
     @GetMapping("{id}")
     fun getUser(@PathVariable("id") userId: Long): ResponseEntity<User> {
@@ -40,7 +40,7 @@ class UserInternalApi(
     @PutMapping("{id}")
     fun updateUser(
         @PathVariable("id") userId: Long,
-        @RequestBody userRequest: UserInternalRequest
+        @RequestBody userRequest: UserInternalRequest,
     ): ResponseEntity<User> {
         return User.of(identity = UserIdentity.of(userId), userRequest)
             .let {

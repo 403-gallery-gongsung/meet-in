@@ -9,7 +9,7 @@ interface FollowIdentity {
 interface FollowToUserProps {
     val fromUserId: Long
     val toUserId: Long
-    companion object{
+    companion object {
         fun of(fromUserId: Long, toUserId: Long): FollowToUserProps {
             return FollowToUserPropsImpl(fromUserId, toUserId)
         }
@@ -23,5 +23,5 @@ interface FollowToCompanyProps {
 
 data class FollowToUserPropsImpl(
     override val fromUserId: Long,
-    override val toUserId: Long
+    override val toUserId: Long,
 ) : FollowToUserProps

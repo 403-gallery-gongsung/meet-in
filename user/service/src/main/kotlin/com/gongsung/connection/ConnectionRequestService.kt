@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
 class ConnectionRequestService(
     private val connectionRequestCommandPersist: ConnectionRequestCommandPersist,
     private val connectionRequestQueryPersist: ConnectionRequestQueryPersist,
-    private val followService: FollowService
+    private val followService: FollowService,
 ) : ConnectionRequestCommandUseCase, ConnectionRequestQueryUseCase {
 
     override fun getAllConnectionByUserId(userIdentity: UserIdentity): List<ConnectionRequest> {
@@ -25,7 +25,7 @@ class ConnectionRequestService(
 
     override fun getByFromUserIdAndToUserId(
         fromUserIdentity: UserIdentity,
-        toUserIdentity: UserIdentity
+        toUserIdentity: UserIdentity,
     ): ConnectionRequest? {
         return connectionRequestQueryPersist.getByFromUserIdAndToUserId(fromUserIdentity, toUserIdentity)
     }
@@ -49,7 +49,7 @@ class ConnectionRequestService(
                 FollowToUserProps.of(
                     fromUserId = connectionRequestProps.fromUserId,
                     toUserId = connectionRequestProps.toUserId,
-                )
+                ),
             )
         }
         return connectionRequestCommandPersist.update(connectionRequestProps)

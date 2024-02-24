@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class FollowRepository(
-    private val jpaFollowRepository: JpaFollowRepository
+    private val jpaFollowRepository: JpaFollowRepository,
 ) : FollowCommandPersist, FollowQueryPersist {
     override fun getAllFollowingByUserId(userId: UserIdentity): List<Follow> {
         return jpaFollowRepository.findAllByFromUserIdAndStatus(userId.userIdentity, EntityStatus.NORMAL)
@@ -57,5 +57,4 @@ class FollowRepository(
             jpaFollowRepository.save(it.apply { status = EntityStatus.DELETED })
         } != null
     }
-
 }

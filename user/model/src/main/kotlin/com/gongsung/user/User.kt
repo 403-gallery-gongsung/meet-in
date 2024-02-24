@@ -15,7 +15,6 @@ interface User : UserIdentity, UserProps {
             props.gender,
             props.introduce,
         )
-
     }
 }
 
@@ -43,10 +42,9 @@ interface UserProps {
             name: String,
             birthDate: LocalDate,
             gender: Gender,
-            introduce: String
+            introduce: String,
         ): UserProps = UserPropsImpl(loginId, email, password, name, birthDate, gender, introduce)
     }
-
 }
 
 data class UserIdentityImpl(
@@ -60,9 +58,8 @@ data class UserPropsImpl(
     override val name: String,
     override val birthDate: LocalDate,
     override val gender: Gender,
-    override val introduce: String
+    override val introduce: String,
 ) : UserProps
-
 
 data class UserImpl(
     override val userIdentity: Long,

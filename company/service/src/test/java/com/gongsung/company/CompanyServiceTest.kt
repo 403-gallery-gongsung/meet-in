@@ -37,6 +37,7 @@ class CompanyServiceTest {
         Assertions.assertEquals(id, result.id)
         Assertions.assertEquals(expected, result)
     }
+
     @Test
     fun `Company를 조회할 때 데이터가 없으면 예외를 반환한다`() {
         // given

@@ -1,6 +1,5 @@
 package com.gongsung.user.service
 
-
 import com.gongsung.common.authority.JwtTokenProvider
 import com.gongsung.common.authority.TokenInfo
 import com.gongsung.common.exception.InvalidInputException
@@ -24,7 +23,7 @@ class UserService(
     private val userRepository: UserRepository,
     private val userRoleRepository: UserRoleRepository,
     private val authenticationManagerBuilder: AuthenticationManagerBuilder,
-    private val jwtTokenProvider: JwtTokenProvider
+    private val jwtTokenProvider: JwtTokenProvider,
 ) {
     fun signUp(userDto: UserDtoRequest): String {
         var user: UserEntity? = userRepository.findByLoginId(userDto.loginId)
@@ -40,7 +39,6 @@ class UserService(
         return "회원 가입이 완료되었습니다."
     }
 
-
     fun signIn(loginDto: LoginDto): TokenInfo {
         val authenticationToken = UsernamePasswordAuthenticationToken(loginDto.loginId, loginDto.password)
         val authentication = authenticationManagerBuilder.`object`.authenticate(authenticationToken)
@@ -50,7 +48,7 @@ class UserService(
 
     fun searchMyInfo(id: Long): UserDtoResponse {
         val user: UserEntity =
-            userRepository.findByIdOrNull(id) ?: throw InvalidInputException("id", "회원(${id})가 존재하지 않는 유저입니다")
+            userRepository.findByIdOrNull(id) ?: throw InvalidInputException("id", "회원($id)가 존재하지 않는 유저입니다")
 
         return user.toDto()
     }

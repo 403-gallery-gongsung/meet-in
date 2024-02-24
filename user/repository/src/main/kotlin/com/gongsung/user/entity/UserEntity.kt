@@ -41,7 +41,7 @@ data class UserEntity(
     @Enumerated(EnumType.STRING)
     override val gender: Gender,
 
-    override val introduce: String
+    override val introduce: String,
 ) : User {
     companion object {
         fun ofProps(userProps: UserProps) = UserEntity(

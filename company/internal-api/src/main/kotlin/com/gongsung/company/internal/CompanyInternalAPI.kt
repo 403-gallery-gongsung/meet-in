@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/internal/v1/company")
 class CompanyInternalAPI(
     @Autowired private val commandUseCase: CommandCompanyUseCase,
-    @Autowired private val queryCompanyUseCase: QueryCompanyUseCase
+    @Autowired private val queryCompanyUseCase: QueryCompanyUseCase,
 ) {
 
     @GetMapping("/{companyId}")
@@ -57,7 +57,7 @@ class CompanyInternalAPI(
     @PutMapping("/{companyId}")
     fun updateCompany(
         @PathVariable("companyId") companyId: Long,
-        @RequestBody companyRequest: CompanyRequest
+        @RequestBody companyRequest: CompanyRequest,
     ): ResponseEntity<Company> {
         return Company.of(companyIdentity = CompanyIdentity.of(companyId), companyRequest)
             .let(

@@ -11,7 +11,7 @@ class ServiceConfiguration {
     @Bean
     fun companyService(
         queryCompanyPersist: QueryCompanyPersist,
-        commandCompanyPersist: CommandCompanyPersist
+        commandCompanyPersist: CommandCompanyPersist,
     ): CompanyService {
         return CompanyService(queryCompanyPersist, commandCompanyPersist)
     }

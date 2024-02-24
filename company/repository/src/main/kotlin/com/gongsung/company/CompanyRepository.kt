@@ -6,7 +6,7 @@ import com.gonsung.company.Company
 import com.gonsung.company.CompanyProps
 
 class CompanyRepository(
-    private val companyMemoryRepository: CompanyMemoryRepository
+    private val companyMemoryRepository: CompanyMemoryRepository,
 ) : CommandCompanyPersist, QueryCompanyPersist {
     override fun createCompany(companyProps: CompanyProps): Company {
         return companyMemoryRepository.createCompany(companyProps)

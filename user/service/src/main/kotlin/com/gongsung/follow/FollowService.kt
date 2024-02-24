@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 @Service
 class FollowService(
     private val followCommandPersist: FollowCommandPersist,
-    private val followQueryPersist: FollowQueryPersist
+    private val followQueryPersist: FollowQueryPersist,
 ) : FollowCommandUseCase, FollowQueryUseCase {
     override fun followToUser(followToUserProps: FollowToUserProps): Follow {
         return followCommandPersist.createFollowToUser(followToUserProps)

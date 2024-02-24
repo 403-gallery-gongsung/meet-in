@@ -9,5 +9,4 @@ interface FollowCommandPersist {
     fun createFollowToCompany(followToCompanyProps: FollowToCompanyProps): Follow
     fun deleteFollowToUser(followToUserProps: FollowToUserProps): Boolean
     fun deleteFollowToCompany(followToCompanyProps: FollowToCompanyProps): Boolean
-
 }

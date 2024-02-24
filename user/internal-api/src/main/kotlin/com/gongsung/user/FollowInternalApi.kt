@@ -17,33 +17,33 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/internal/v1/follow")
 class FollowInternalApi(
     private val followQueryUseCase: FollowQueryUseCase,
-    private val followCommandUseCase: FollowCommandUseCase
+    private val followCommandUseCase: FollowCommandUseCase,
 ) {
 
     @PostMapping("/user")
     fun followToUser(
-        @RequestBody followToUserRequestDto: FollowToUserRequestDto
+        @RequestBody followToUserRequestDto: FollowToUserRequestDto,
     ): Follow {
         return followCommandUseCase.followToUser(followToUserRequestDto)
     }
 
     @PostMapping("/company")
     fun followToCompany(
-        @RequestBody followToCompanyRequestDto: FollowToCompanyRequestDto
+        @RequestBody followToCompanyRequestDto: FollowToCompanyRequestDto,
     ): Follow {
         return followCommandUseCase.followToCompany(followToCompanyRequestDto)
     }
 
     @DeleteMapping("/user")
     fun unFollowToUser(
-        @RequestBody followToUserRequestDto: FollowToUserRequestDto
+        @RequestBody followToUserRequestDto: FollowToUserRequestDto,
     ): Boolean {
         return followCommandUseCase.unFollowToUser(followToUserRequestDto)
     }
 
     @DeleteMapping("/company")
     fun unFollowToCompany(
-        @RequestBody followToCompanyRequestDto: FollowToCompanyRequestDto
+        @RequestBody followToCompanyRequestDto: FollowToCompanyRequestDto,
     ): Boolean {
         return followCommandUseCase.unFollowToCompany(followToCompanyRequestDto)
     }
@@ -51,7 +51,7 @@ class FollowInternalApi(
     @GetMapping("/user")
     fun getByFromUserIdAndToUserId(
         @RequestParam("fromUserId") fromUserId: Long,
-        @RequestParam("toUserId") toUserId: Long
+        @RequestParam("toUserId") toUserId: Long,
     ): ResponseEntity<Follow> {
         return followQueryUseCase.getByFromUserIdAndToUserId(
             UserIdentity.of(
@@ -68,7 +68,7 @@ class FollowInternalApi(
     @GetMapping("/company")
     fun getByFromUserIdAndToCompanyId(
         @RequestParam("fromUserId") fromUserId: Long,
-        @RequestParam("toCompanyId") toCompanyId: Long
+        @RequestParam("toCompanyId") toCompanyId: Long,
     ): ResponseEntity<Follow> {
         return followQueryUseCase.getByFromUserIdAndToCompanyId(
             UserIdentity.of(

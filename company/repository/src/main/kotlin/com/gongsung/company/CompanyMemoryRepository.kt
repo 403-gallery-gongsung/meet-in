@@ -8,7 +8,7 @@ import jakarta.persistence.EntityNotFoundException
 class CompanyMemoryRepository {
     private val repository = mutableMapOf<Long, CompanyEntity>()
     fun getCompanyById(id: Long): Company {
-        return repository[id] ?: throw EntityNotFoundException("[Company-${id}] Not Exist")
+        return repository[id] ?: throw EntityNotFoundException("[Company-$id] Not Exist")
     }
 
     fun createCompany(companyProps: CompanyProps): Company {
