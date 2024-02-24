@@ -20,7 +20,7 @@ data class ConnectionRequestEntity(
     override val toUserId: Long,
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    override val status: ConnectionRequestStatus = ConnectionRequestStatus.PENDING
+    override val status: ConnectionRequestStatus = ConnectionRequestStatus.PENDING,
 ) : ConnectionRequest {
     companion object {
         fun ofProps(connectionRequestProps: ConnectionRequestProps): ConnectionRequestEntity =

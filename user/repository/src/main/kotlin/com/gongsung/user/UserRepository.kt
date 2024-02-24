@@ -1,9 +1,7 @@
 package com.gongsung.user
 
-import com.gongsung.user.entity.UserEntity
 import com.gongsung.user.persist.CommandPersist
 import com.gongsung.user.persist.QueryPersist
-import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -23,5 +21,4 @@ class UserRepository : CommandPersist, QueryPersist {
     override fun getById(id: Long): User {
         TODO("get user in database by id")
     }
-
 }

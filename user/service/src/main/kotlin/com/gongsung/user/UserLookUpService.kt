@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserLookUpService(
-    private val queryPersist: QueryPersist
+    private val queryPersist: QueryPersist,
 ) : QueryUseCase {
     override fun getById(id: UserIdentity): User {
         return queryPersist.getById(id.userIdentity)

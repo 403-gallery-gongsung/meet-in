@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/internal/v1/connection")
 class ConnectionInternalApi(
     private val connectionRequestCommandUseCase: ConnectionRequestCommandUseCase,
-    private val connectionRequestQueryUseCase: ConnectionRequestQueryUseCase
+    private val connectionRequestQueryUseCase: ConnectionRequestQueryUseCase,
 ) {
 
     @GetMapping("/{userId}")
     fun getAllConnectionByUserId(
-        @PathVariable("userId") userId: Long
+        @PathVariable("userId") userId: Long,
     ): ResponseEntity<List<ConnectionRequest>> {
         return connectionRequestQueryUseCase.getAllConnectionByUserId(UserIdentity.of(userId))
             .let { ResponseEntity.ok(it) }
@@ -31,7 +31,7 @@ class ConnectionInternalApi(
     @GetMapping
     fun getConnectionRequest(
         @RequestParam("fromUserId") fromUserId: Long,
-        @RequestParam("toUserId") toUserId: Long
+        @RequestParam("toUserId") toUserId: Long,
     ): ResponseEntity<ConnectionRequest> {
         return connectionRequestQueryUseCase.getByFromUserIdAndToUserId(
             UserIdentity.of(fromUserId),
@@ -42,7 +42,7 @@ class ConnectionInternalApi(
 
     @PostMapping
     fun createConnectionRequest(
-        @RequestBody connectionRequest: ConnectionRequestDto
+        @RequestBody connectionRequest: ConnectionRequestDto,
     ): ResponseEntity<ConnectionRequest> {
         return connectionRequestCommandUseCase.create(
             fromUserIdentity = UserIdentity.of(connectionRequest.fromUserId),
@@ -52,7 +52,7 @@ class ConnectionInternalApi(
 
     @PutMapping
     fun updateConnectionRequest(
-        @RequestBody connectionRequest: ConnectionRequestDto
+        @RequestBody connectionRequest: ConnectionRequestDto,
     ): ResponseEntity<ConnectionRequest> {
         return connectionRequestCommandUseCase.update(
             connectionRequest,

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class CompanyService(
     private val queryCompanyPersist: QueryCompanyPersist,
-    private val commandCompanyPersist: CommandCompanyPersist
+    private val commandCompanyPersist: CommandCompanyPersist,
 ) : CommandCompanyUseCase, QueryCompanyUseCase {
     override fun getCompanyById(id: CompanyIdentity): Company {
         return queryCompanyPersist.getCompanyById(id.id)

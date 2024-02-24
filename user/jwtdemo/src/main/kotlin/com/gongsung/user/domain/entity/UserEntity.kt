@@ -15,7 +15,6 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
-import org.hibernate.annotations.Fetch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -46,14 +45,16 @@ class UserEntity(
 
     val introduce: String,
 
-    val deleteStatus: Boolean
-){
-    fun toDto(): UserDtoResponse = UserDtoResponse(id = id!!,
+    val deleteStatus: Boolean,
+) {
+    fun toDto(): UserDtoResponse = UserDtoResponse(
+        id = id!!,
         loginId = loginId,
         birthDate = birthDate.formatDate(),
         gander = gender.description,
         email = email,
-        name = name)
+        name = name,
+    )
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     val userRole: List<UserRole>? = null
@@ -73,5 +74,5 @@ class UserRole(
     val role: Role,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    val user: UserEntity
+    val user: UserEntity,
 )

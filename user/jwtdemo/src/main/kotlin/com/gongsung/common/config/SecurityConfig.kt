@@ -14,22 +14,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val jwtTokenProvider: JwtTokenProvider
+    private val jwtTokenProvider: JwtTokenProvider,
 ) {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .httpBasic{ it.disable()}
-            .csrf{it.disable()}
-            .sessionManagement{ it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)}
-            .authorizeHttpRequests{
-                it.requestMatchers("/api/user/signup","/api/user/signin").anonymous()
+            .httpBasic { it.disable() }
+            .csrf { it.disable() }
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .authorizeHttpRequests {
+                it.requestMatchers("/api/user/signup", "/api/user/signin").anonymous()
                     .requestMatchers("/api/user/**").hasAnyRole(Role.USER.toString(), Role.COMPANY.toString())
                     .anyRequest().permitAll()
             }
             .addFilterBefore(
                 JwtAuthenticationFilter(jwtTokenProvider),
-                UsernamePasswordAuthenticationFilter::class.java
+                UsernamePasswordAuthenticationFilter::class.java,
             )
 
         return http.build()

@@ -38,14 +38,13 @@ data class UserDtoRequest(
 
     @JsonProperty("birthDate")
     private val _birthDate: String?,
-    val introduce: String
+    val introduce: String,
 ) {
     val gender: Gender
         get() = Gender.valueOf(_gender!!)
 
     val birthDate: LocalDate
         get() = _birthDate!!.toLocalDate()
-
 
     private fun String.toLocalDate(): LocalDate =
         LocalDate.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
@@ -60,7 +59,6 @@ data class UserDtoRequest(
             gender = gender,
             birthDate = birthDate,
             introduce = introduce,
-            deleteStatus = false
+            deleteStatus = false,
         )
-
 }

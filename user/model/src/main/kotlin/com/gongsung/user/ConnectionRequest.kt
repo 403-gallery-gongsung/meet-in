@@ -2,7 +2,8 @@ package com.gongsung.user
 
 import com.gongsung.user.enums.ConnectionRequestStatus
 
-interface ConnectionRequest : ConnectionRequestIdentity,
+interface ConnectionRequest :
+    ConnectionRequestIdentity,
     ConnectionRequestProps
 
 interface ConnectionRequestIdentity {
@@ -23,14 +24,14 @@ interface ConnectionRequestProps {
         fun of(
             fromUserId: Long,
             toUserId: Long,
-            status: ConnectionRequestStatus
+            status: ConnectionRequestStatus,
         ): ConnectionRequestProps =
             ConnectionRequestPropsImpl(fromUserId, toUserId, status)
     }
 }
 
 data class ConnectionRequestIdentityImpl(
-    override val id: Long
+    override val id: Long,
 ) : ConnectionRequestIdentity
 
 data class ConnectionRequestPropsImpl(

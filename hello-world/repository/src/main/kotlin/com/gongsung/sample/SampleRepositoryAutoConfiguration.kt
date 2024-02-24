@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @Import(
-    SampleMemoryRepository::class
+    SampleMemoryRepository::class,
 )
 @EntityScan
 @EnableJpaRepositories

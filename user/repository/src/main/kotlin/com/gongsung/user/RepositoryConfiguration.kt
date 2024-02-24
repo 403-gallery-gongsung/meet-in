@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 @EnableJpaAuditing
 @EntityScan(basePackages = ["com.gongsung.user.entity"])
 @Configuration
-class RepositoryConfiguration {
-}
+class RepositoryConfiguration

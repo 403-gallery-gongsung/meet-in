@@ -7,6 +7,6 @@ interface FollowQueryUseCase {
     fun getByFromUserIdAndToUserId(fromUserIdentity: UserIdentity, toUserIdentity: UserIdentity): Follow?
     fun getByFromUserIdAndToCompanyId(
         fromUserIdentity: UserIdentity,
-        toCompanyIdentity: Long
+        toCompanyIdentity: Long,
     ): Follow? // toCompanyIdentity: Long을 CompanyIdentity로 바꿔야하는가?
 }

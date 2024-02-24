@@ -7,23 +7,22 @@ import org.junit.jupiter.api.TestInstance
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 
-
 @Transactional
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class JwtDemoTest(
     private val userService: UserService,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) {
     @Test
-    fun passwordEncoding(){
-        //given
+    fun passwordEncoding() {
+        // given
         val loginDto = LoginDto("gongsung403", "cafeConcrete123")
 
-        //when
+        // when
         val signInTokenInfo = userService.signIn(loginDto)
 
-        //then
+        // then
         val findUser = userRepository.findByLoginId(loginDto.loginId)
         if (findUser != null) {
             assertNotEquals(loginDto.password, findUser.password)
@@ -34,7 +33,6 @@ internal class JwtDemoTest(
             )
 
             println("TokenInfo : ${signInTokenInfo.accessToken}, ${signInTokenInfo.grantType}")
-
         }
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class ConnectionRequestRepository(
-    private val jpaConnectionRequestRepository: JpaConnectionRequestRepository
+    private val jpaConnectionRequestRepository: JpaConnectionRequestRepository,
 ) : ConnectionRequestCommandPersist, ConnectionRequestQueryPersist {
     override fun create(connectionRequestProps: ConnectionRequestProps): ConnectionRequest {
         return jpaConnectionRequestRepository.save(
@@ -30,7 +30,6 @@ class ConnectionRequestRepository(
             )
         }
             ?: throw IllegalArgumentException("${connectionRequestProps.fromUserId} - ${connectionRequestProps.toUserId} Connection not found")
-
     }
 
     override fun getAllByUserId(userIdentity: UserIdentity, status: ConnectionRequestStatus): List<ConnectionRequest> {
@@ -42,7 +41,7 @@ class ConnectionRequestRepository(
 
     override fun getByFromUserIdAndToUserId(
         fromUserIdentity: UserIdentity,
-        toUserIdentity: UserIdentity
+        toUserIdentity: UserIdentity,
     ): ConnectionRequestEntity? {
         return jpaConnectionRequestRepository.findByFromUserIdAndToUserId(
             fromUserIdentity.userIdentity,

@@ -6,5 +6,5 @@ import com.gongsung.user.enums.ConnectionRequestStatus
 data class ConnectionRequestDto(
     override val fromUserId: Long,
     override val toUserId: Long,
-    override val status: ConnectionRequestStatus
+    override val status: ConnectionRequestStatus,
 ) : ConnectionRequestProps

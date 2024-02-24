@@ -27,6 +27,6 @@ interface CompanyFeignClient : CommandCompanyUseCase, QueryCompanyUseCase {
     @PutMapping("/{companyId}")
     fun updateCompany(
         @PathVariable("companyId") companyId: Long,
-        companyRequest: CompanyRequest
+        companyRequest: CompanyRequest,
     ): ResponseEntity<Company>
 }
