@@ -132,6 +132,7 @@ configureByTypeHaving("boot", "jpa", "repository") {
     dependencies {
         api("org.springframework.boot:spring-boot-starter-data-jpa")
         testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        runtimeOnly("com.mysql:mysql-connector-j")
     }
 }
 
@@ -165,10 +166,6 @@ configureByTypeHaving("security") {
 
 configureByTypeHaving("boot", "application") {
     apply(plugin = "org.springframework.boot")
-
-    dependencies {
-        runtimeOnly("com.mysql:mysql-connector-j")
-    }
 
     tasks.withType<BootJar> {
         enabled = false
