@@ -1,5 +1,6 @@
 package com.gongsung.auth.entity
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.gongsung.auth.Gender
 import com.gongsung.auth.User
 import com.gongsung.auth.UserProps
@@ -17,6 +18,7 @@ import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.Pattern
 import org.springframework.validation.annotation.Validated
 import java.time.Instant
+import java.time.LocalDate
 
 @Entity
 @Validated
@@ -40,7 +42,7 @@ data class UserEntity(
     override var name: String = "",
 
     @Temporal(TemporalType.DATE)
-    override var birthDate: Instant? = Instant.now(),
+    override var birthDate: LocalDate? = LocalDate.now(),
 
     @Enumerated(EnumType.STRING)
     override var gender: Gender? = Gender.UNKNOWN,

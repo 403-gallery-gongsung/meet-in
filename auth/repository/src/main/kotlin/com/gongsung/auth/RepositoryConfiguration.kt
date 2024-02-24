@@ -8,12 +8,17 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @EntityScan
-class AuthRepositoryConfiguration {
+class RepositoryConfiguration {
     @PersistenceContext
     lateinit var entityManager: EntityManager
 
     @Bean
-    fun authRepository(): AuthRepository {
-        return AuthRepository(entityManager)
+    fun userRepository(): UserRepository {
+        return UserRepository(entityManager)
+    }
+
+    @Bean
+    fun companyRepository(): CompanyRepository {
+        return CompanyRepository(entityManager)
     }
 }

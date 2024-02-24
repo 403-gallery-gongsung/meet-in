@@ -1,6 +1,7 @@
 package com.gongsung.auth
 
 import java.time.Instant
+import java.time.LocalDate
 
 interface User : UserIdentity, UserProps {
     companion object{
@@ -30,7 +31,7 @@ interface UserProps {
     var password: String
     val email: String
     var name: String
-    var birthDate: Instant?
+    var birthDate: LocalDate?
     var gender: Gender?
     var introduce: String?
 
@@ -40,7 +41,7 @@ interface UserProps {
             password: String,
             email: String,
             name: String,
-            birthDate: Instant,
+            birthDate: LocalDate,
             gender: Gender,
             introduce: String
         ): UserProps = UserPropsImpl(loginId,password,email, name, birthDate, gender, introduce)
@@ -53,7 +54,7 @@ class UserImpl(
     override var password: String,
     override val email: String,
     override var name: String,
-    override var birthDate: Instant?,
+    override var birthDate: LocalDate?,
     override var gender: Gender?,
     override var introduce: String?
 ) : User
@@ -63,7 +64,7 @@ class UserPropsImpl(
     override var password: String,
     override val email: String,
     override var name: String,
-    override var birthDate: Instant?,
+    override var birthDate: LocalDate?,
     override var gender: Gender?,
     override var introduce: String?,
 ): UserProps
