@@ -2,6 +2,8 @@ rootProject.name = "meet-in"
 
 include(":application")
 
+include("common:exception")
+
 include("hello-world:api")
 include("hello-world:internal-api")
 include("hello-world:internal-api-client")
@@ -10,6 +12,7 @@ include("hello-world:repository")
 include("hello-world:persist")
 include("hello-world:service")
 include("hello-world:use-case")
+
 include("company")
 include("company:model")
 include("company:repository")
