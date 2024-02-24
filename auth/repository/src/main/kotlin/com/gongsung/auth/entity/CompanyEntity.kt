@@ -18,11 +18,6 @@ import org.springframework.validation.annotation.Validated
 @Validated
 @Table(name = "COMPANY")
 class CompanyEntity(
-    @Id
-    @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val companyId: Long = JpaConstant.NOT_YET,
-
     @Column(nullable = false, length = 30)
     override val loginId: String = "",
 
@@ -52,5 +47,5 @@ class CompanyEntity(
     }
 
     override val companyIdentity: Long
-        get() = companyId
+        get() = id
 }

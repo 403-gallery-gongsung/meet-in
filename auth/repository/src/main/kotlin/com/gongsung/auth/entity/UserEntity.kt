@@ -22,11 +22,6 @@ import java.time.Instant
 @Validated
 @Table(name = "USER")
 data class UserEntity(
-    @Id
-    @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val userId: Long = JpaConstant.NOT_YET,
-
     @Column(nullable = false, length = 30)
     override val loginId: String = "",
 
@@ -64,5 +59,5 @@ data class UserEntity(
     }
 
     override val userIdentity: Long
-        get() = userId
+        get() = id
 }
