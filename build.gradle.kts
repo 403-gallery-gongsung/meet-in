@@ -84,6 +84,7 @@ configureByTypeHaving("kotlin") {
         }
     }
 
+    val kotestVersion = "4.4.3"
     dependencies {
         implementation(platform("org.jetbrains.kotlin:kotlin-bom:$kotlinVersion"))
         implementation(enforcedPlatform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.7.1"))
@@ -97,6 +98,10 @@ configureByTypeHaving("kotlin") {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+
+        testImplementation("io.kotest:kotest-extensions-spring:$kotestVersion")
+        testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
+        testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
     }
 }
 
