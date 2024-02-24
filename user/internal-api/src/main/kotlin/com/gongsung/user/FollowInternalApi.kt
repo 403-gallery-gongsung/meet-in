@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -49,14 +50,15 @@ class FollowInternalApi(
 
     @GetMapping("/user")
     fun getByFromUserIdAndToUserId(
-        @RequestBody followToUserRequestDto: FollowToUserRequestDto
+        @RequestParam("fromUserId") fromUserId: Long,
+        @RequestParam("toUserId") toUserId: Long
     ): ResponseEntity<Follow> {
         return followQueryUseCase.getByFromUserIdAndToUserId(
             UserIdentity.of(
-                followToUserRequestDto.fromUserId,
+                fromUserId,
             ),
             UserIdentity.of(
-                followToUserRequestDto.toUserId,
+                toUserId,
             ),
         )?.let {
             ResponseEntity.ok(it)
@@ -65,13 +67,14 @@ class FollowInternalApi(
 
     @GetMapping("/company")
     fun getByFromUserIdAndToCompanyId(
-        @RequestBody followToCompanyRequestDto: FollowToCompanyRequestDto
+        @RequestParam("fromUserId") fromUserId: Long,
+        @RequestParam("toCompanyId") toCompanyId: Long
     ): ResponseEntity<Follow> {
         return followQueryUseCase.getByFromUserIdAndToCompanyId(
             UserIdentity.of(
-                followToCompanyRequestDto.fromUserId,
+                fromUserId,
             ),
-            followToCompanyRequestDto.toCompanyId,
+            toCompanyId,
         )?.let {
             ResponseEntity.ok(it)
         } ?: ResponseEntity.notFound().build()
