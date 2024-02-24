@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/internal/v1/connection")
+@RequestMapping("/internal/v1/connection")
 class ConnectionInternalApi(
     private val connectionRequestCommandUseCase: ConnectionRequestCommandUseCase,
     private val connectionRequestQueryUseCase: ConnectionRequestQueryUseCase
@@ -27,10 +28,10 @@ class ConnectionInternalApi(
             .let { ResponseEntity.ok(it) }
     }
 
-    @GetMapping("/{fromUserId}/{toUserId}")
+    @GetMapping
     fun getConnectionRequest(
-        @PathVariable("fromUserId") fromUserId: Long,
-        @PathVariable("toUserId") toUserId: Long
+        @RequestParam("fromUserId") fromUserId: Long,
+        @RequestParam("toUserId") toUserId: Long
     ): ResponseEntity<ConnectionRequest> {
         return connectionRequestQueryUseCase.getByFromUserIdAndToUserId(
             UserIdentity.of(fromUserId),
