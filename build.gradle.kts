@@ -25,6 +25,7 @@ plugins {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     kotlin("kapt") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
 }
 
 val kotlinVersion = "1.9.21"
@@ -131,11 +132,13 @@ configureByTypeHaving("boot", "jpa", "repository") {
     dependencies {
         api("org.springframework.boot:spring-boot-starter-data-jpa")
         testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        runtimeOnly("com.mysql:mysql-connector-j")
     }
 }
 
 configureByTypeHaving("boot", "jpa", "repository", "querydsl") {
     val queryDslVersion = "5.0.0:jakarta"
+    apply(plugin = "kotlin-jpa")
 
     dependencies {
         implementation("com.querydsl:querydsl-jpa:$queryDslVersion")
@@ -150,20 +153,19 @@ configureByTypeHaving("boot", "mvc") {
     }
 }
 
-configureByTypeHaving("client") {
-    val feignClientVersion = "4.1.0"
-
+configureByTypeHaving("security") {
     dependencies {
-        compileOnly("org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0")
+        implementation("org.springframework.boot:spring-boot-starter-validation:3.1.0")
+        implementation("org.springframework.boot:spring-boot-starter-security:3.1.0")
+
+        implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+        runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+        runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
     }
 }
 
 configureByTypeHaving("boot", "application") {
     apply(plugin = "org.springframework.boot")
-
-    dependencies {
-        runtimeOnly("com.mysql:mysql-connector-j")
-    }
 
     tasks.withType<BootJar> {
         enabled = false

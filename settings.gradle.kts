@@ -20,6 +20,17 @@ include("company:persist")
 include("company:internal-api")
 include("company:internal-api-client")
 
+include("user:api")
+include("user:internal-api")
+include("user:repository")
+include("user:internal-api-client")
+include("user:service")
+include("user:model")
+include("user:use-case")
+include("user:persist")
+
+include("user:jwtdemo")         // will remove
+
 pluginManagement {
     buildscript {
         repositories {
