@@ -2,14 +2,6 @@ rootProject.name = "meet-in"
 
 include(":application")
 
-include("hello-world:api")
-include("hello-world:internal-api")
-include("hello-world:internal-api-client")
-include("hello-world:model")
-include("hello-world:repository")
-include("hello-world:persist")
-include("hello-world:service")
-include("hello-world:use-case")
 include("company")
 include("company:model")
 include("company:repository")
@@ -30,6 +22,8 @@ include("user:use-case")
 include("user:persist")
 
 include("user:jwtdemo") // will remove
+
+include("common")
 
 pluginManagement {
     buildscript {

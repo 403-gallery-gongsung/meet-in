@@ -178,3 +178,10 @@ configureByTypeHaving("client") {
         implementation("org.springframework.cloud:spring-cloud-starter-openfeign:$feignClientVersion")
     }
 }
+
+configureByTypeHaving("kafka") {
+    dependencies {
+        implementation(platform(SpringBootPlugin.BOM_COORDINATES))
+        implementation("org.springframework.kafka:spring-kafka")
+    }
+}
