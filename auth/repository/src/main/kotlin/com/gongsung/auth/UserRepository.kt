@@ -7,14 +7,12 @@ import com.gongsung.auth.persist.query.QueryUserPersist
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 class UserRepository(
     @PersistenceContext
-    private val entityManager: EntityManager
-) : QueryUserPersist, CommandUserPersist, QuerydslRepositorySupport(User::class.java) {
-
-    private val jpaQueryFactory: JPAQueryFactory by lazy { JPAQueryFactory(entityManager) }
+    private val entityManager: EntityManager,
+    private val jpaQueryFactory: JPAQueryFactory
+) : QueryUserPersist, CommandUserPersist {
     override fun getUserById(id: Long): User =
         jpaQueryFactory.selectFrom(userEntity)
             .where(userEntity.id.eq(id))

@@ -7,20 +7,18 @@ import com.gongsung.auth.persist.query.QueryCompanyPersist
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
-class CompanyRepository (
+class CompanyRepository(
     @PersistenceContext
-    private val entityManager: EntityManager
-): QueryCompanyPersist,CommandCompanyPersist, QuerydslRepositorySupport(Company::class.java){
-
-    private val jpaQueryFactory: JPAQueryFactory by lazy { JPAQueryFactory(entityManager) }
+    private val entityManager: EntityManager,
+    private val jpaQueryFactory: JPAQueryFactory
+) : QueryCompanyPersist, CommandCompanyPersist {
     override fun getCompanyById(id: Long): Company =
         jpaQueryFactory.selectFrom(companyEntity)
             .where(companyEntity.id.eq(id))
             .fetchOne()!!
 
     override fun createCompany(company: CompanyProps): Company =
-        company.let (CompanyEntity::ofProps)
+        company.let(CompanyEntity::ofProps)
             .also { entityManager.persist(it) }
 }
