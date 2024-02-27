@@ -6,7 +6,6 @@ interface Account : AccountIdentity, AccountProps {
             identity.accountIdentity,
             props.loginId,
             props.password,
-            props.type
         )
     }
 }
@@ -14,14 +13,12 @@ interface Account : AccountIdentity, AccountProps {
 interface AccountProps {
     val loginId: String
     val password: String
-    val type: AccountType
 
     companion object {
         fun of(
             loginId: String,
             password: String,
-            type: AccountType
-        ): AccountProps = AccountPropsImpl(loginId, password,type)
+        ): AccountProps = AccountPropsImpl(loginId, password)
     }
 }
 
@@ -37,13 +34,11 @@ class AccountImpl(
     override val accountIdentity: Long,
     override val loginId: String,
     override val password: String,
-    override val type: AccountType,
 ) : Account
 
 class AccountPropsImpl(
     override val loginId: String,
     override val password: String,
-    override val type: AccountType,
 ) : AccountProps
 
 class AccountIdentityImpl(
