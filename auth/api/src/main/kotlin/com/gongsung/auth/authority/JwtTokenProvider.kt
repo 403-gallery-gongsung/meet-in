@@ -1,6 +1,7 @@
 package com.gongsung.auth.authority
 
 import com.gongsung.auth.TokenInfo
+import com.gongsung.auth.config.JwtSecretConfig
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -10,7 +11,6 @@ import io.jsonwebtoken.UnsupportedJwtException
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SecurityException
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
@@ -18,17 +18,16 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
-import java.lang.IllegalArgumentException
 import java.util.*
 
-const val EXPIRATION_MILLISECONDS: Long = 1000 * 60 * 30
+const val EXPIRATION_MILLISECONDS: Long = 1000 * 60 * 60
 
 @Component
-class JwtTokenProvider {
-//    Todo: ConfigurationProperties
-    @Value("\${jwt.secret}")
-    lateinit var secretKey: String
+class JwtTokenProvider(
+    private val jwtSecretConfig: JwtSecretConfig
+) {
 
+    val secretKey: String = jwtSecretConfig.secret
     private val key by lazy { Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)) }
 
     fun createToken(authentication: Authentication): TokenInfo {
@@ -51,12 +50,11 @@ class JwtTokenProvider {
     }
 
     fun validateToken(token: String): Boolean {
-//        Todo : runCatching
-        try {
+        val result = runCatching {
             getClaims(token)
 
-            return true
-        } catch (exception: Exception) {
+            true
+        }.getOrElse { exception ->
             when (exception) {
                 is SecurityException -> {}
                 is MalformedJwtException -> {}
@@ -66,14 +64,17 @@ class JwtTokenProvider {
                 else -> {}
             }
 
-            return false
+            false
         }
+
+        return result
     }
 
 
     fun getAuthentication(token: String): Authentication {
         val claims: Claims = getClaims(token)
         val auth = claims["auth"] ?: throw RuntimeException("잘못된 토큰입니다")
+        val userId = claims["userId"] ?: throw RuntimeException("유저 아이디가 조회되지 않습니다")
 
         val authorities: Collection<GrantedAuthority> = (auth as String)
             .split(",")
