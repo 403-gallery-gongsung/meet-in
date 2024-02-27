@@ -1,14 +1,12 @@
 package com.gongsung.auth.entity
 
+import com.gongsung.auth.AccountType
 import com.gongsung.auth.Company
 import com.gongsung.auth.CompanyProps
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import jakarta.validation.constraints.Pattern
@@ -35,7 +33,7 @@ class CompanyEntity(
 
     @OneToMany(mappedBy = "company", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var jobPostings: MutableList<JobEntity> = mutableListOf()
-) : Company, AccountEntity(loginId = loginId, password = password) {
+) : Company, AccountEntity(loginId = loginId, password = password, type = AccountType.COMPANY) {
     companion object {
         fun ofProps(companyProps: CompanyProps) = CompanyEntity(
             loginId = companyProps.loginId,

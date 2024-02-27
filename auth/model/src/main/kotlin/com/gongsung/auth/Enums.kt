@@ -1,7 +1,7 @@
 package com.gongsung.auth
 
 enum class AccountType {
-    COMPANY, USER
+    FORBID,COMPANY, USER
 }
 
 enum class Gender{

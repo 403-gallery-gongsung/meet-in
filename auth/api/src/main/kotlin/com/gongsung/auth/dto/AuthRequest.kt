@@ -13,5 +13,5 @@ class AuthRequest(
     @field:NotBlank
     @JsonProperty("password")
     override val password: String,
-    val accountType: AccountType,
+    override val type: AccountType,
 ) : AccountProps

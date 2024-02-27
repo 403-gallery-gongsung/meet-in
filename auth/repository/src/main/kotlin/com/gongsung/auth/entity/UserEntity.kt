@@ -1,6 +1,6 @@
 package com.gongsung.auth.entity
 
-import com.fasterxml.jackson.annotation.JsonFormat
+import com.gongsung.auth.AccountType
 import com.gongsung.auth.Gender
 import com.gongsung.auth.User
 import com.gongsung.auth.UserProps
@@ -8,16 +8,12 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
 import jakarta.persistence.Table
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.Pattern
 import org.springframework.validation.annotation.Validated
-import java.time.Instant
 import java.time.LocalDate
 
 @Entity
@@ -47,7 +43,7 @@ data class UserEntity(
     @Enumerated(EnumType.STRING)
     override var gender: Gender? = Gender.UNKNOWN,
     override var introduce: String? = ""
-) : User, AccountEntity(loginId = loginId, password = password) {
+) : User, AccountEntity(loginId = loginId, password = password, type = AccountType.USER) {
     companion object {
         fun ofProps(userProps: UserProps) = UserEntity(
             loginId = userProps.loginId,

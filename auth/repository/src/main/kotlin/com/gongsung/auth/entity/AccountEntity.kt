@@ -5,6 +5,8 @@ import com.gongsung.auth.AccountProps
 import com.gongsung.auth.AccountType
 import jakarta.persistence.DiscriminatorColumn
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -22,11 +24,14 @@ open class AccountEntity(
     val id: Long = JpaConstant.NOT_YET,
     override val loginId: String = "",
     override val password: String = "",
+    @Enumerated(EnumType.STRING)
+    override val type: AccountType = AccountType.FORBID,
 ) : Account {
     companion object {
         fun ofProps(accountProps: AccountProps) = AccountEntity(
             loginId = accountProps.loginId,
             password = accountProps.password,
+            type = accountProps.type
         )
     }
 
