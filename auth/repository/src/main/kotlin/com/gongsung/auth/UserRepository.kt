@@ -25,8 +25,7 @@ class UserRepository(
             userEntity.introduce,
         )
         .from(userEntity)
-        .leftJoin(accountEntity).on(userEntity.id.eq(accountEntity.id))
-        .where(userEntity.id.eq(id))
+        .join(accountEntity).on(userEntity.id.eq(accountEntity.id))
         .fetchOne()
         ?.let {
             User.of(

@@ -23,7 +23,6 @@ class CompanyRepository(
         )
             .from(companyEntity)
             .join(accountEntity).on(companyEntity.id.eq(accountEntity.id))
-            .where(companyEntity.id.eq(id))
             .fetchOne()
             ?.let {
                 Company.of(
