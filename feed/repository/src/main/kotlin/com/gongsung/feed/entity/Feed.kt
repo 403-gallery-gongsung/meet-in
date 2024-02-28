@@ -20,6 +20,7 @@ class Feed(
     override val date: LocalDate = LocalDate.now(),
     override val time: LocalTime = LocalTime.now(),
     override val contents: String = "",
+    override var likeCount: Long = 0,
 ) : FeedModel {
 
     companion object {

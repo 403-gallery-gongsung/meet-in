@@ -39,4 +39,14 @@ internal class FeedMemoryRepository : CommandFeedPersist, QueryFeedPersist {
 
         return repository[id] ?: throw IllegalArgumentException("Feed 조회 중 에러 발생.")
     }
+
+    override fun increaseLikes(feedId: Long) {
+        val feed = repository[feedId] ?: throw IllegalArgumentException("Feed 조회 중 에러 발생.")
+        feed.likeCount += 1
+    }
+
+    override fun decreaseLikes(feedId: Long) {
+        val feed = repository[feedId] ?: throw IllegalArgumentException("Feed 조회 중 에러 발생.")
+        feed.likeCount -= 1
+    }
 }

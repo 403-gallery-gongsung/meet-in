@@ -36,6 +36,22 @@ class FeedController(
             .let(FeedIdentity.Companion::of)
             .run(getFeedUseCase::getFeed)
     }
+
+    @PostMapping("/{feedId}/like")
+    fun like(
+        @PathVariable feedId: Long,
+        @RequestBody request: FeedLikeRequest,
+    ) {
+        commandFeedUseCase.like(feedId, request.userId)
+    }
+
+    @PostMapping("/{feedId}/dislike")
+    fun dislike(
+        @PathVariable feedId: Long,
+        @RequestBody request: FeedLikeRequest,
+    ) {
+        commandFeedUseCase.dislike(feedId, request.userId)
+    }
 }
 
 data class CreateFeedRequest(
@@ -58,3 +74,7 @@ data class UpdateFeedRequest(
 
     override val time: LocalTime = LocalTime.now()
 }
+
+data class FeedLikeRequest(
+    val userId: Long,
+)

@@ -31,3 +31,7 @@ interface FeedDetail {
 data class FeedIdentityImpl(
     override val feedId: Long,
 ) : FeedIdentity
+
+interface FeedLike {
+    var likeCount: Long
+}

@@ -7,4 +7,8 @@ interface CommandFeedPersist {
     fun update(feedId: Long, feedProps: FeedProps): FeedModel
 
     fun delete(id: Long)
+
+    fun increaseLikes(feedId: Long)
+
+    fun decreaseLikes(feedId: Long)
 }
