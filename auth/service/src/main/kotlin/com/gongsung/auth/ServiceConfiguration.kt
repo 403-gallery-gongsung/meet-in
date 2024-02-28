@@ -5,12 +5,14 @@ import com.gongsung.auth.lookup.CompanyLookUpService
 import com.gongsung.auth.lookup.UserLookUpService
 import com.gongsung.auth.persist.command.CommandCompanyPersist
 import com.gongsung.auth.persist.command.CommandUserPersist
+import com.gongsung.auth.persist.query.QueryAuthPersist
 import com.gongsung.auth.persist.query.QueryCompanyPersist
 import com.gongsung.auth.persist.query.QueryUserPersist
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 @ComponentScan
@@ -18,7 +20,7 @@ class ServiceConfiguration {
     @Bean
     fun authService(
         authenticationManagerBuilder: AuthenticationManagerBuilder,
-        jwtTokenProvider: JwtTokenProvider
+        jwtTokenProvider: JwtTokenProvider,
     ): AuthService {
         return AuthService(authenticationManagerBuilder, jwtTokenProvider)
     }
@@ -50,4 +52,12 @@ class ServiceConfiguration {
     ): CompanyService {
         return CompanyService(commandCompanyPersist)
     }
+   @Bean
+    fun customUserDetailsService(
+       queryAuthPersist: QueryAuthPersist,
+       passwordEncoder: PasswordEncoder
+    ): CustomUserDetailsService {
+        return CustomUserDetailsService(queryAuthPersist, passwordEncoder)
+    }
+
 }
