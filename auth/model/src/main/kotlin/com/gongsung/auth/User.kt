@@ -1,6 +1,5 @@
 package com.gongsung.auth
 
-import java.time.Instant
 import java.time.LocalDate
 
 interface User : UserIdentity, UserProps {
@@ -41,9 +40,9 @@ interface UserProps {
             password: String,
             email: String,
             name: String,
-            birthDate: LocalDate,
-            gender: Gender,
-            introduce: String
+            birthDate: LocalDate?,
+            gender: Gender?,
+            introduce: String?
         ): UserProps = UserPropsImpl(loginId,password,email, name, birthDate, gender, introduce)
     }
 }

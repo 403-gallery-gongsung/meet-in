@@ -28,8 +28,8 @@ class CompanyEntity(
 
     @Column(nullable = false, length = 10)
     override var name: String = "",
-    override var website: String = "",
-    override var introduce: String = "",
+    override var website: String? = "",
+    override var introduce: String? = "",
 
     @OneToMany(mappedBy = "company", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var jobPostings: MutableList<JobEntity> = mutableListOf()

@@ -26,16 +26,16 @@ interface CompanyProps {
     val loginId: String
     var password: String
     var name: String
-    var website: String
-    var introduce: String
+    var website: String?
+    var introduce: String?
 
     companion object {
         fun of(
             loginId: String,
             password: String,
             name: String,
-            website: String,
-            introduce: String
+            website: String?,
+            introduce: String?
         ): CompanyProps = CompanyPropsImpl(loginId, password, name, website, introduce)
     }
 }
@@ -45,8 +45,8 @@ class CompanyImpl(
     override val loginId: String,
     override var password: String,
     override var name: String,
-    override var website: String,
-    override var introduce: String
+    override var website: String?,
+    override var introduce: String?
 ) : Company
 
 class CompanyIdentityImpl(
@@ -57,6 +57,6 @@ class CompanyPropsImpl(
     override val loginId: String,
     override var password: String,
     override var name: String,
-    override var website: String,
-    override var introduce: String
+    override var website: String?,
+    override var introduce: String?
 ) : CompanyProps
