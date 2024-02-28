@@ -27,12 +27,6 @@ class UserInternalApi(
             .let { ResponseEntity.ok(it) }
     }
 
-    @PostMapping
-    fun createUser(@RequestBody @Valid userRequest: UserInternalRequest): ResponseEntity<User> {
-        return userRequest.run(commandUseCase::createUser)
-            .let { ResponseEntity.ok(it) }
-    }
-
     @DeleteMapping("/{id}")
     fun deleteUser(@PathVariable("id") userId: Long): ResponseEntity<Boolean> {
         return userId.let(UserIdentity::of)

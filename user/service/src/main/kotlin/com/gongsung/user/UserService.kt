@@ -7,10 +7,6 @@ import org.springframework.stereotype.Service
 class UserService(
     private val commandPersist: CommandUserPersist
 ) : CommandUserUseCase {
-    override fun createUser(userProps: UserProps): User {
-        return commandPersist.createUser(userProps)
-    }
-
     override fun deleteUser(id: UserIdentity): Boolean {
         return commandPersist.deleteUser(id.userIdentity)
     }

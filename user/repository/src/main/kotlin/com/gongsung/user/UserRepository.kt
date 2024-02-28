@@ -24,15 +24,6 @@ class UserRepository(
     private val jpaQueryFactory by lazy { JPAQueryFactory(entityManager) }
 
     @Transactional
-    override fun createUser(user: UserProps): User {
-        return user.let(UserEntity::ofProps)
-            .let {
-                entityManager.persist(it)
-                it
-            }
-    }
-
-    @Transactional
     override fun deleteUser(id: Long): Boolean {
         return jpaQueryFactory.delete(userEntity)
             .where(userEntity.id.eq(id)).execute() == 1L
