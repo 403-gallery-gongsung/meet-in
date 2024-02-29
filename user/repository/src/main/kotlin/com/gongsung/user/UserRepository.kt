@@ -1,8 +1,6 @@
 package com.gongsung.user
 
-
 import com.gongsung.user.entity.QUserEntity.userEntity
-import com.gongsung.user.entity.UserEntity
 import com.gongsung.user.persist.CommandUserPersist
 import com.gongsung.user.persist.QueryUserPersist
 import com.querydsl.jpa.impl.JPAQueryFactory
@@ -14,13 +12,11 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 
-
 @Repository
 class UserRepository(
     @PersistenceContext
-    private val entityManager: EntityManager
+    private val entityManager: EntityManager,
 ) : CommandUserPersist, QueryUserPersist, QuerydslRepositorySupport(User::class.java) {
-
     private val jpaQueryFactory by lazy { JPAQueryFactory(entityManager) }
 
     @Transactional
@@ -52,5 +48,4 @@ class UserRepository(
             .where(userEntity.id.eq(id))
             .fetchOne()!!
     }
-
 }

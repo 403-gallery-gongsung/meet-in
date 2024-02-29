@@ -1,5 +1,3 @@
 package com.gongsung.user
 
-
-class UserInternalApiClient {
-}
+class UserInternalApiClient

@@ -9,7 +9,7 @@ class UserInternalApiConfiguration {
     @Bean
     fun userInternalApi(
         commandUserUseCase: CommandUserUseCase,
-        queryUserUseCase: QueryUserUseCase
+        queryUserUseCase: QueryUserUseCase,
     ): UserInternalApi {
         return UserInternalApi(commandUserUseCase, queryUserUseCase)
     }

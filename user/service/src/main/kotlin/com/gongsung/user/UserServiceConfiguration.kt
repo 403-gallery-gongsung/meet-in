@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @ComponentScan("com.gongsung.user")
 class UserServiceConfiguration {
-
     @Bean
     fun userService(commandPersist: CommandUserPersist): UserService {
         return UserService(commandPersist)

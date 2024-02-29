@@ -13,5 +13,5 @@ data class UserInternalRequest(
     override val name: String,
     override val birthDate: LocalDate,
     override val gender: Gender,
-    override val introduce: String
+    override val introduce: String,
 ) : UserProps

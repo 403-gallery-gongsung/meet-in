@@ -28,49 +28,39 @@ data class UserEntity(
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = JpaConstants.NOT_YET,
-
     @Column(nullable = false, length = 30, updatable = false)
     override val loginId: String = "",
-
     @field:Email(message = "Email 형식이 아닙니다.")
     @Column(nullable = false, length = 30)
     override val email: String = "",
-
     @Column(nullable = false, length = 30)
     @field:Pattern(
         regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=\\S+$).{8,15}$",
         message = "영어 대소문자 및 숫자, 특수기호가 1개 이상 포함된 8~15길이의 비밀번호여야 합니다.",
     )
     override val password: String = "",
-
-
-
     @Column(nullable = false, length = 10)
     override val name: String = "",
-
     @Temporal(TemporalType.DATE)
     override val birthDate: LocalDate? = LocalDate.now(),
-
     @Enumerated(EnumType.STRING)
     override val gender: Gender? = Gender.UNKNOWN,
-
-    override val introduce: String? = ""
+    override val introduce: String? = "",
 ) : User {
-
     companion object {
-        fun ofProps(userProps: UserProps) = UserEntity(
-            loginId = userProps.loginId,
-            email = userProps.email,
-            password = userProps.password,
-            name = userProps.name,
-            birthDate = userProps.birthDate,
-            gender = userProps.gender,
-            introduce = userProps.introduce,
-        )
+        fun ofProps(userProps: UserProps) =
+            UserEntity(
+                loginId = userProps.loginId,
+                email = userProps.email,
+                password = userProps.password,
+                name = userProps.name,
+                birthDate = userProps.birthDate,
+                gender = userProps.gender,
+                introduce = userProps.introduce,
+            )
     }
 
-    private fun LocalDate.formatDate(): String =
-        this.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
+    private fun LocalDate.formatDate(): String = this.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
 
     override val userIdentity: Long
         get() = id ?: throw RuntimeException("There is no user")
