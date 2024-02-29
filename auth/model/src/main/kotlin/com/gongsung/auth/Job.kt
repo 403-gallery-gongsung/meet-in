@@ -2,7 +2,10 @@ package com.gongsung.auth
 
 interface Job : JobIdentity, JobProps {
     companion object {
-        fun of(identity: JobIdentity, props: JobProps) = JobImpl(
+        fun of(
+            identity: JobIdentity,
+            props: JobProps,
+        ) = JobImpl(
             identity.jobIdentity,
             props.title,
             props.description,
@@ -24,7 +27,8 @@ interface JobProps {
 
     companion object {
         fun of(
-            title: String, description: String
+            title: String,
+            description: String,
         ): JobProps = JobPropsImpl(title, description)
     }
 }
@@ -32,17 +36,14 @@ interface JobProps {
 class JobImpl(
     override val jobIdentity: Long,
     override var title: String,
-    override var description: String
+    override var description: String,
 ) : Job
 
-
-
 class JobIdentityImpl(
-    override val jobIdentity: Long
+    override val jobIdentity: Long,
 ) : JobIdentity
-
 
 class JobPropsImpl(
     override var title: String,
-    override var description: String
+    override var description: String,
 ) : JobProps

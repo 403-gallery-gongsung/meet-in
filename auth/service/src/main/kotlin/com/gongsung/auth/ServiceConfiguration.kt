@@ -26,38 +26,30 @@ class ServiceConfiguration {
     }
 
     @Bean
-    fun userLookUpService(
-        queryUserPersist: QueryUserPersist
-    ): UserLookUpService {
+    fun userLookUpService(queryUserPersist: QueryUserPersist): UserLookUpService {
         return UserLookUpService(queryUserPersist)
     }
 
     @Bean
-    fun userService(
-        commandUserPersist: CommandUserPersist
-    ): UserService {
+    fun userService(commandUserPersist: CommandUserPersist): UserService {
         return UserService(commandUserPersist)
     }
 
     @Bean
-    fun companyLookUpService(
-        queryCompanyPersist: QueryCompanyPersist
-    ): CompanyLookUpService {
+    fun companyLookUpService(queryCompanyPersist: QueryCompanyPersist): CompanyLookUpService {
         return CompanyLookUpService(queryCompanyPersist)
     }
 
     @Bean
-    fun companyService(
-        commandCompanyPersist: CommandCompanyPersist
-    ): CompanyService {
+    fun companyService(commandCompanyPersist: CommandCompanyPersist): CompanyService {
         return CompanyService(commandCompanyPersist)
     }
-   @Bean
+
+    @Bean
     fun customUserDetailsService(
-       queryAuthPersist: QueryAuthPersist,
-       passwordEncoder: PasswordEncoder
+        queryAuthPersist: QueryAuthPersist,
+        passwordEncoder: PasswordEncoder,
     ): CustomUserDetailsService {
         return CustomUserDetailsService(queryAuthPersist, passwordEncoder)
     }
-
 }

@@ -7,11 +7,10 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CompanyService(
-    private val commandCompanyPersist: CommandCompanyPersist
+    private val commandCompanyPersist: CommandCompanyPersist,
 ) : CommandCompanyUseCase {
     @Transactional
     override fun createCompany(props: CompanyProps): Company {
         return commandCompanyPersist.createCompany(props)
     }
-
 }

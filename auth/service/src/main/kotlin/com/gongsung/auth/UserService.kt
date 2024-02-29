@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class UserService (
-    private val commandUserPersist: CommandUserPersist
-) : CommandUserUseCase{
+class UserService(
+    private val commandUserPersist: CommandUserPersist,
+) : CommandUserUseCase {
     @Transactional
     override fun createUser(props: UserProps): User {
         return commandUserPersist.createUser(props)

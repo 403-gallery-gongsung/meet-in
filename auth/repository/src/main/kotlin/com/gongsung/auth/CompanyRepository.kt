@@ -12,7 +12,7 @@ import jakarta.persistence.PersistenceContext
 class CompanyRepository(
     @PersistenceContext
     private val entityManager: EntityManager,
-    private val jpaQueryFactory: JPAQueryFactory
+    private val jpaQueryFactory: JPAQueryFactory,
 ) : QueryCompanyPersist, CommandCompanyPersist {
     override fun getCompanyById(id: Long): Company =
         jpaQueryFactory.select(

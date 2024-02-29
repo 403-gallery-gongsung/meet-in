@@ -28,11 +28,12 @@ open class AccountEntity(
     override val type: AccountType = AccountType.FORBID,
 ) : Account {
     companion object {
-        fun ofProps(accountProps: AccountProps) = AccountEntity(
-            loginId = accountProps.loginId,
-            password = accountProps.password,
-            type = accountProps.type
-        )
+        fun ofProps(accountProps: AccountProps) =
+            AccountEntity(
+                loginId = accountProps.loginId,
+                password = accountProps.password,
+                type = accountProps.type,
+            )
     }
 
     override val accountIdentity: Long

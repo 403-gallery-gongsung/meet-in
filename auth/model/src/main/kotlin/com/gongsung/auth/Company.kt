@@ -2,7 +2,10 @@ package com.gongsung.auth
 
 interface Company : CompanyIdentity, CompanyProps {
     companion object {
-        fun of(identity: CompanyIdentity, props: CompanyProps) = CompanyImpl(
+        fun of(
+            identity: CompanyIdentity,
+            props: CompanyProps,
+        ) = CompanyImpl(
             identity.companyIdentity,
             props.loginId,
             props.password,
@@ -12,7 +15,6 @@ interface Company : CompanyIdentity, CompanyProps {
         )
     }
 }
-
 
 interface CompanyIdentity {
     val companyIdentity: Long
@@ -35,7 +37,7 @@ interface CompanyProps {
             password: String,
             name: String,
             website: String?,
-            introduce: String?
+            introduce: String?,
         ): CompanyProps = CompanyPropsImpl(loginId, password, name, website, introduce)
     }
 }
@@ -46,11 +48,11 @@ class CompanyImpl(
     override var password: String,
     override var name: String,
     override var website: String?,
-    override var introduce: String?
+    override var introduce: String?,
 ) : Company
 
 class CompanyIdentityImpl(
-    override val companyIdentity: Long
+    override val companyIdentity: Long,
 ) : CompanyIdentity
 
 class CompanyPropsImpl(
@@ -58,5 +60,5 @@ class CompanyPropsImpl(
     override var password: String,
     override var name: String,
     override var website: String?,
-    override var introduce: String?
+    override var introduce: String?,
 ) : CompanyProps

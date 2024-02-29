@@ -20,13 +20,14 @@ class CompanyServiceTest : BehaviorSpec(
             val lookUpSut = CompanyLookUpService(queryCompanyPersist)
 
             `when`("companyService의 createCompany를 호출할 때") {
-                val companyProps = CompanyProps.of(
-                    loginId = "meet-in",
-                    password = "KNU2016!@#",
-                    name = "gongsung",
-                    website = "gallery.com",
-                    introduce = "hello world!",
-                )
+                val companyProps =
+                    CompanyProps.of(
+                        loginId = "meet-in",
+                        password = "KNU2016!@#",
+                        name = "gongsung",
+                        website = "gallery.com",
+                        introduce = "hello world!",
+                    )
                 val expected = Company.of(CompanyIdentity.of(1L), companyProps)
 
                 whenever(sut.createCompany(companyProps)).thenReturn(expected)
@@ -39,16 +40,17 @@ class CompanyServiceTest : BehaviorSpec(
 
             `when`("CompanyLookUpService의 getCompanyById를 호출할 때") {
                 val companyId = 1L
-                val expected = Company.of(
-                    CompanyIdentity.of(companyId),
-                    CompanyProps.of(
-                        loginId = "meet-in",
-                        password = "KNU2016!@#",
-                        name = "gongsung",
-                        website = "gallery.com",
-                        introduce = "hello world!",
-                    ),
-                )
+                val expected =
+                    Company.of(
+                        CompanyIdentity.of(companyId),
+                        CompanyProps.of(
+                            loginId = "meet-in",
+                            password = "KNU2016!@#",
+                            name = "gongsung",
+                            website = "gallery.com",
+                            introduce = "hello world!",
+                        ),
+                    )
 
                 whenever(lookUpSut.getCompanyById(CompanyIdentity.of(companyId))).thenReturn(expected)
 

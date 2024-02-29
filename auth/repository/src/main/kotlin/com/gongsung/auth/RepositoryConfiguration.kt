@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration
 class RepositoryConfiguration(
     @PersistenceContext
     private val entityManager: EntityManager,
-    private val jpaQueryFactory: JPAQueryFactory
+    private val jpaQueryFactory: JPAQueryFactory,
 ) {
     @Bean
     fun userRepository(): UserRepository {
@@ -23,6 +23,7 @@ class RepositoryConfiguration(
     fun companyRepository(): CompanyRepository {
         return CompanyRepository(entityManager, jpaQueryFactory)
     }
+
     @Bean
     fun authRepository(): AuthRepository {
         return AuthRepository(jpaQueryFactory)

@@ -4,5 +4,5 @@ import com.gongsung.auth.User
 import com.gongsung.auth.UserIdentity
 
 interface QueryUserUseCase {
-    fun getUserById(id: UserIdentity) : User
+    fun getUserById(id: UserIdentity): User
 }

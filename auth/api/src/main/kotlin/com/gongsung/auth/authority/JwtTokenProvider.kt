@@ -24,61 +24,63 @@ const val EXPIRATION_MILLISECONDS: Long = 1000 * 60 * 60
 
 @Component
 class JwtTokenProvider(
-    private val jwtSecretConfig: JwtSecretConfig
+    private val jwtSecretConfig: JwtSecretConfig,
 ) {
-
     val secretKey: String = jwtSecretConfig.secret
     private val key by lazy { Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)) }
 
     fun createToken(authentication: Authentication): TokenInfo {
-        val authorities: String = authentication
-            .authorities
-            .joinToString(",", transform = GrantedAuthority::getAuthority)
+        val authorities: String =
+            authentication
+                .authorities
+                .joinToString(",", transform = GrantedAuthority::getAuthority)
 
         val now = Date()
         val accessExpiration = Date(now.time + EXPIRATION_MILLISECONDS)
 
-        val accessToken = Jwts.builder()
-            .setSubject(authentication.name)
-            .claim("auth", authorities)
-            .setIssuedAt(now)
-            .setExpiration(accessExpiration)
-            .signWith(key, SignatureAlgorithm.HS256)
-            .compact()
+        val accessToken =
+            Jwts.builder()
+                .setSubject(authentication.name)
+                .claim("auth", authorities)
+                .setIssuedAt(now)
+                .setExpiration(accessExpiration)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact()
 
         return TokenInfo("Bearer", accessToken)
     }
 
     fun validateToken(token: String): Boolean {
-        val result = runCatching {
-            getClaims(token)
+        val result =
+            runCatching {
+                getClaims(token)
 
-            true
-        }.getOrElse { exception ->
-            when (exception) {
-                is SecurityException -> {}
-                is MalformedJwtException -> {}
-                is ExpiredJwtException -> {}
-                is UnsupportedJwtException -> {}
-                is IllegalArgumentException -> {}
-                else -> {}
+                true
+            }.getOrElse { exception ->
+                when (exception) {
+                    is SecurityException -> {}
+                    is MalformedJwtException -> {}
+                    is ExpiredJwtException -> {}
+                    is UnsupportedJwtException -> {}
+                    is IllegalArgumentException -> {}
+                    else -> {}
+                }
+
+                false
             }
-
-            false
-        }
 
         return result
     }
-
 
     fun getAuthentication(token: String): Authentication {
         val claims: Claims = getClaims(token)
         val auth = claims["auth"] ?: throw RuntimeException("잘못된 토큰입니다")
         val userId = claims["userId"] ?: throw RuntimeException("유저 아이디가 조회되지 않습니다")
 
-        val authorities: Collection<GrantedAuthority> = (auth as String)
-            .split(",")
-            .map { SimpleGrantedAuthority(it) }
+        val authorities: Collection<GrantedAuthority> =
+            (auth as String)
+                .split(",")
+                .map { SimpleGrantedAuthority(it) }
 
         val principal: UserDetails = User(claims.subject, "", authorities)
 

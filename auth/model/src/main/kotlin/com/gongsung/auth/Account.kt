@@ -2,11 +2,14 @@ package com.gongsung.auth
 
 interface Account : AccountIdentity, AccountProps {
     companion object {
-        fun of(identity: AccountIdentity, props: AccountProps) = AccountImpl(
+        fun of(
+            identity: AccountIdentity,
+            props: AccountProps,
+        ) = AccountImpl(
             identity.accountIdentity,
             props.loginId,
             props.password,
-            props.type
+            props.type,
         )
     }
 }
@@ -20,8 +23,8 @@ interface AccountProps {
         fun of(
             loginId: String,
             password: String,
-            type: AccountType
-        ): AccountProps = AccountPropsImpl(loginId, password,type)
+            type: AccountType,
+        ): AccountProps = AccountPropsImpl(loginId, password, type)
     }
 }
 
@@ -47,5 +50,5 @@ class AccountPropsImpl(
 ) : AccountProps
 
 class AccountIdentityImpl(
-    override val accountIdentity: Long
+    override val accountIdentity: Long,
 ) : AccountIdentity

@@ -3,8 +3,11 @@ package com.gongsung.auth
 import java.time.LocalDate
 
 interface User : UserIdentity, UserProps {
-    companion object{
-        fun of(identity: UserIdentity, props: UserProps) = UserImpl(
+    companion object {
+        fun of(
+            identity: UserIdentity,
+            props: UserProps,
+        ) = UserImpl(
             identity.userIdentity,
             props.loginId,
             props.password,
@@ -42,8 +45,8 @@ interface UserProps {
             name: String,
             birthDate: LocalDate?,
             gender: Gender?,
-            introduce: String?
-        ): UserProps = UserPropsImpl(loginId,password,email, name, birthDate, gender, introduce)
+            introduce: String?,
+        ): UserProps = UserPropsImpl(loginId, password, email, name, birthDate, gender, introduce)
     }
 }
 
@@ -55,7 +58,7 @@ class UserImpl(
     override var name: String,
     override var birthDate: LocalDate?,
     override var gender: Gender?,
-    override var introduce: String?
+    override var introduce: String?,
 ) : User
 
 class UserPropsImpl(
@@ -66,9 +69,8 @@ class UserPropsImpl(
     override var birthDate: LocalDate?,
     override var gender: Gender?,
     override var introduce: String?,
-): UserProps
-
+) : UserProps
 
 class UserIdentityImpl(
     override val userIdentity: Long,
-): UserIdentity
+) : UserIdentity

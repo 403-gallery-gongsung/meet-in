@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class CustomUserDetailsService(
     private val queryAuthPersist: QueryAuthPersist,
-    private val passwordEncoder: PasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails =
 //      Todo:  findByLoginId에서 loginId랑 password가 전부 빈칸으로 뜬다. 왜 ??
@@ -21,13 +21,14 @@ class CustomUserDetailsService(
         queryAuthPersist.findByLoginId(username)
             .let(::createUserDetails)
 
-    private fun createUserDetails(account: Account): UserDetails = User(
-        account.loginId,
-        passwordEncoder.encode(account.password),
-        mutableListOf<GrantedAuthority>().apply {
-            add(
-                SimpleGrantedAuthority("AccountType_${account.type.name}"),
-            )
-        },
-    )
+    private fun createUserDetails(account: Account): UserDetails =
+        User(
+            account.loginId,
+            passwordEncoder.encode(account.password),
+            mutableListOf<GrantedAuthority>().apply {
+                add(
+                    SimpleGrantedAuthority("AccountType_${account.type.name}"),
+                )
+            },
+        )
 }

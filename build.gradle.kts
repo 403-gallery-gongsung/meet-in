@@ -153,7 +153,7 @@ configureByTypeHaving("boot", "mvc") {
     }
 }
 
-configureByTypeHaving("security"){
+configureByTypeHaving("security") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-validation:3.1.0")
         implementation("org.springframework.boot:spring-boot-starter-security:3.1.0")

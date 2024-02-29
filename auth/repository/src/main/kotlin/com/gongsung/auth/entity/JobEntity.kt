@@ -19,17 +19,14 @@ class JobEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = JpaConstant.NOT_YET,
-
     @Column(nullable = false, length = 20)
     override var title: String = "",
-
     @Column(nullable = false)
     override var description: String = "",
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "companyId")
-    val company: CompanyEntity? = null
-): Job {
+    val company: CompanyEntity? = null,
+) : Job {
     override val jobIdentity: Long
         get() = id
 }

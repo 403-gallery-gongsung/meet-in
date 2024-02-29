@@ -1,6 +1,6 @@
 package com.gongsung.auth
 
-class TokenInfo (
+class TokenInfo(
     val grantType: String,
     val accessToken: String,
 //    val refreshToken: String

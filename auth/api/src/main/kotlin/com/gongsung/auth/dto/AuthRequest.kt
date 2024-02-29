@@ -9,7 +9,6 @@ class AuthRequest(
     @field:NotBlank
     @JsonProperty("loginId")
     override val loginId: String,
-
     @field:NotBlank
     @JsonProperty("password")
     override val password: String,
