@@ -14,6 +14,14 @@ interface Account : AccountIdentity, AccountProps {
     }
 }
 
+interface AccountIdentity {
+    val accountIdentity: Long
+
+    companion object {
+        fun of(accountIdentity: Long): AccountIdentity = AccountIdentityImpl(accountIdentity)
+    }
+}
+
 interface AccountProps {
     val loginId: String
     val password: String
@@ -25,14 +33,6 @@ interface AccountProps {
             password: String,
             type: AccountType,
         ): AccountProps = AccountPropsImpl(loginId, password, type)
-    }
-}
-
-interface AccountIdentity {
-    val accountIdentity: Long
-
-    companion object {
-        fun of(accountIdentity: Long): AccountIdentity = AccountIdentityImpl(accountIdentity)
     }
 }
 

@@ -5,7 +5,7 @@ import com.gongsung.auth.AccountProps
 import com.gongsung.auth.AccountType
 import jakarta.validation.constraints.NotBlank
 
-class AuthRequest(
+data class AccountRequest(
     @field:NotBlank
     @JsonProperty("loginId")
     override val loginId: String,
