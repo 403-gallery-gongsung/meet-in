@@ -1,69 +1,32 @@
 package com.gongsung.auth
 
+import com.gongsung.auth.entity.AccountEntity
 import com.gongsung.auth.entity.QAccountEntity.accountEntity
-import com.gongsung.auth.entity.QCompanyEntity.companyEntity
-import com.gongsung.auth.entity.QUserEntity.userEntity
+import com.gongsung.auth.persist.command.CommandAuthPersist
 import com.gongsung.auth.persist.query.QueryAuthPersist
-import com.querydsl.jpa.impl.JPAQueryFactory
-import org.springframework.security.core.userdetails.UsernameNotFoundException
+import jakarta.persistence.EntityManager
+import jakarta.persistence.PersistenceContext
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 class AuthRepository(
-    private val jpaQueryFactory: JPAQueryFactory,
-) : QueryAuthPersist {
-    override fun findByLoginId(loginId: String): Account {
-        val result =
-            jpaQueryFactory.selectFrom(accountEntity)
-                .where(accountEntity.loginId.eq(loginId))
-                .fetchOne() ?: throw UsernameNotFoundException("Account not found by loginId: $loginId")
+    @PersistenceContext
+    private val entityManager: EntityManager,
+) : QueryAuthPersist, CommandAuthPersist, QuerydslRepositorySupport(Account::class.java) {
+    override fun findByLoginId(loginId: String): Account = from(accountEntity)
+        .where(accountEntity.loginId.eq(loginId))
+        .fetchOne()
+        ?.run {
+            Account.of(
+                AccountIdentity.of(accountIdentity),
+                AccountProps.of(
+                    loginId = this.loginId,
+                    password = password,
+                    type = type,
+                ),
+            )
+        } ?: throw NoSuchElementException("No Tuple does not exist")
 
-/*
-        val entity = when (result.type) {
-            AccountType.USER -> userEntity
-            AccountType.COMPANY -> companyEntity
-            AccountType.FORBID -> throw IllegalStateException("AccountType is not specified for given loginId : $loginId")
-        }
-*/
-
-        return when (result.type) {
-            AccountType.USER ->
-                jpaQueryFactory.select(
-                    userEntity.loginId,
-                    userEntity.password,
-                )
-                    .from(userEntity)
-                    .join(userEntity).on(accountEntity.id.eq(userEntity.id))
-                    .fetchOne()
-                    ?.let {
-                        Account.of(
-                            AccountIdentity.of(result.id),
-                            AccountProps.of(
-                                loginId = it.get(userEntity.loginId)!!,
-                                password = it.get(userEntity.password)!!,
-                                type = result.type,
-                            ),
-                        )
-                    }!!
-
-            AccountType.COMPANY ->
-                jpaQueryFactory.select(
-                    companyEntity.loginId,
-                    companyEntity.password,
-                )
-                    .from(companyEntity)
-                    .join(companyEntity).on(accountEntity.id.eq(companyEntity.id))
-                    .fetchOne()
-                    ?.let {
-                        Account.of(
-                            AccountIdentity.of(result.id),
-                            AccountProps.of(
-                                loginId = it.get(companyEntity.loginId)!!,
-                                password = it.get(companyEntity.password)!!,
-                                type = result.type,
-                            ),
-                        )
-                    }!!
-
-            AccountType.FORBID -> throw IllegalStateException("AccountType is not specified for given loginId : $loginId")
-        }
-    }
+    override fun createAccount(accountProps: AccountProps): Account =
+        accountProps.let(AccountEntity::ofProps)
+            .also { entityManager.persist(it) }
 }
