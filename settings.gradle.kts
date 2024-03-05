@@ -3,6 +3,7 @@ rootProject.name = "meet-in"
 include(":application")
 
 include("common:exception")
+include("common:infrastructure")
 
 include("hello-world:api")
 include("hello-world:internal-api")
