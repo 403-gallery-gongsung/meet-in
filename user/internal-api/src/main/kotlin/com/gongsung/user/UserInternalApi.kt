@@ -3,10 +3,12 @@ package com.gongsung.user
 import com.gongsung.user.command.CommandUserUseCase
 import com.gongsung.user.dto.UserInternalRequest
 import com.gongsung.user.query.QueryUserUseCase
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -33,6 +35,14 @@ class UserInternalApi(
     ): ResponseEntity<Boolean> {
         return userId.let(UserIdentity::of)
             .run(commandUseCase::deleteUser)
+            .let { ResponseEntity.ok(it) }
+    }
+
+    @PostMapping
+    fun createUser(
+        @RequestBody @Valid userRequest: UserInternalRequest
+    ): ResponseEntity<User> {
+        return userRequest.run(commandUseCase::createUser)
             .let { ResponseEntity.ok(it) }
     }
 

@@ -1,6 +1,7 @@
 package com.gongsung.user
 
 import com.gongsung.user.entity.QUserEntity.userEntity
+import com.gongsung.user.entity.UserEntity
 import com.gongsung.user.persist.CommandUserPersist
 import com.gongsung.user.persist.QueryUserPersist
 import com.querydsl.jpa.impl.JPAQueryFactory
@@ -18,6 +19,13 @@ class UserRepository(
     private val entityManager: EntityManager,
 ) : CommandUserPersist, QueryUserPersist, QuerydslRepositorySupport(User::class.java) {
     private val jpaQueryFactory by lazy { JPAQueryFactory(entityManager) }
+    override fun createUser(userProps: UserProps): User {
+        return userProps.let(UserEntity::ofProps)
+            .let {
+                entityManager.persist(it)
+                it
+            }
+    }
 
     @Transactional
     override fun deleteUser(id: Long): Boolean {

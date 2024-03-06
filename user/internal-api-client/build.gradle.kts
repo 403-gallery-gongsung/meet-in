@@ -1,3 +1,5 @@
 dependencies {
-    implementation(project(":user:use-case"))
+    api(project(":user:use-case"))
+    implementation(project(":user:internal-api"))
+    implementation(project(":user:model"))
 }
