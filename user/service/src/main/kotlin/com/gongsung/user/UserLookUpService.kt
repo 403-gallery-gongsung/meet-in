@@ -1,6 +1,6 @@
 package com.gongsung.user
 
-import com.gongsung.user.persist.QueryUserPersist
+import com.gongsung.user.persist.user.QueryUserPersist
 import com.gongsung.user.query.QueryUserUseCase
 
 class UserLookUpService(

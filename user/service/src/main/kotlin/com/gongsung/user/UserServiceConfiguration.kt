@@ -1,7 +1,7 @@
 package com.gongsung.user
 
-import com.gongsung.user.persist.CommandUserPersist
-import com.gongsung.user.persist.QueryUserPersist
+import com.gongsung.user.persist.user.CommandUserPersist
+import com.gongsung.user.persist.user.QueryUserPersist
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
