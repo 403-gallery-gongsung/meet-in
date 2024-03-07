@@ -5,7 +5,10 @@ import java.time.LocalDate
 
 interface User : UserIdentity, UserProps {
     companion object {
-        fun of(identity: UserIdentity, props: UserProps) = UserImpl(
+        fun of(
+            identity: UserIdentity,
+            props: UserProps,
+        ) = UserImpl(
             identity.userIdentity,
             props.loginId,
             props.email,
@@ -31,9 +34,10 @@ interface UserProps {
     val email: String
     val password: String
     val name: String
-    val birthDate: LocalDate
-    val gender: Gender
-    val introduce: String
+    val birthDate: LocalDate?
+    val gender: Gender?
+    val introduce: String?
+
     companion object {
         fun of(
             loginId: String,
@@ -67,7 +71,7 @@ data class UserImpl(
     override val email: String,
     override val password: String,
     override val name: String,
-    override val birthDate: LocalDate,
-    override val gender: Gender,
-    override val introduce: String,
+    override val birthDate: LocalDate?,
+    override val gender: Gender?,
+    override val introduce: String?,
 ) : User

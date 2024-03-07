@@ -36,6 +36,7 @@ allprojects {
         lockAllConfigurations()
     }
 
+
     configurations.all(
         {
             resolutionStrategy.cacheChangingModulesFor(10, TimeUnit.SECONDS)
@@ -113,7 +114,7 @@ configureByTypeHaving("boot") {
         annotationProcessor(platform(SpringBootPlugin.BOM_COORDINATES))
 
         implementation("org.springframework.boot:spring-boot-starter")
-        implementation("org.springframework.boot:spring-boot-starter-actuator")
+        implementation("org.springframework.boot:spring-boot-starter-validation:3.2.1")
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     }
@@ -132,6 +133,7 @@ configureByTypeHaving("boot", "jpa", "repository") {
     dependencies {
         api("org.springframework.boot:spring-boot-starter-data-jpa")
         testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
         runtimeOnly("com.mysql:mysql-connector-j")
     }
 }
@@ -150,6 +152,8 @@ configureByTypeHaving("boot", "jpa", "repository", "querydsl") {
 configureByTypeHaving("boot", "mvc") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-web")
+        implementation("org.springframework.boot:spring-boot-starter-actuator:3.2.1")
+
     }
 }
 

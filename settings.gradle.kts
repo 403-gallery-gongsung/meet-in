@@ -32,7 +32,7 @@ include("user:model")
 include("user:use-case")
 include("user:persist")
 
-include("user:jwtdemo") // will remove
+include("user:application")
 
 pluginManagement {
     buildscript {
@@ -47,7 +47,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
