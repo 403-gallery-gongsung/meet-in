@@ -17,7 +17,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
 
     id("com.linecorp.build-recipe-plugin") version "1.1.1"
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.0"
 
     val kotlinVersion = "1.9.21"
@@ -25,7 +25,6 @@ plugins {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     kotlin("kapt") version kotlinVersion
-    kotlin("plugin.jpa") version kotlinVersion
 }
 
 val kotlinVersion = "1.9.21"
@@ -36,12 +35,9 @@ allprojects {
         lockAllConfigurations()
     }
 
-
-    configurations.all(
-        {
-            resolutionStrategy.cacheChangingModulesFor(10, TimeUnit.SECONDS)
-        },
-    )
+    configurations.all({
+        resolutionStrategy.cacheChangingModulesFor(10, TimeUnit.SECONDS)
+    })
 }
 
 configureByTypeHaving("kotlin") {
@@ -88,6 +84,7 @@ configureByTypeHaving("kotlin") {
         }
     }
 
+    val kotestVersion = "4.4.3"
     dependencies {
         implementation(platform("org.jetbrains.kotlin:kotlin-bom:$kotlinVersion"))
         implementation(enforcedPlatform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.7.1"))
@@ -101,6 +98,10 @@ configureByTypeHaving("kotlin") {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+
+        testImplementation("io.kotest:kotest-extensions-spring:$kotestVersion")
+        testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
+        testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
     }
 }
 
@@ -114,7 +115,7 @@ configureByTypeHaving("boot") {
         annotationProcessor(platform(SpringBootPlugin.BOM_COORDINATES))
 
         implementation("org.springframework.boot:spring-boot-starter")
-        implementation("org.springframework.boot:spring-boot-starter-validation:3.2.1")
+        implementation("org.springframework.boot:spring-boot-starter-actuator")
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     }
@@ -133,14 +134,11 @@ configureByTypeHaving("boot", "jpa", "repository") {
     dependencies {
         api("org.springframework.boot:spring-boot-starter-data-jpa")
         testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
-
-        runtimeOnly("com.mysql:mysql-connector-j")
     }
 }
 
 configureByTypeHaving("boot", "jpa", "repository", "querydsl") {
     val queryDslVersion = "5.0.0:jakarta"
-    apply(plugin = "kotlin-jpa")
 
     dependencies {
         implementation("com.querydsl:querydsl-jpa:$queryDslVersion")
@@ -152,8 +150,6 @@ configureByTypeHaving("boot", "jpa", "repository", "querydsl") {
 configureByTypeHaving("boot", "mvc") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-web")
-        implementation("org.springframework.boot:spring-boot-starter-actuator:3.2.1")
-
     }
 }
 
@@ -171,14 +167,11 @@ configureByTypeHaving("security") {
 configureByTypeHaving("boot", "application") {
     apply(plugin = "org.springframework.boot")
 
+    dependencies {
+        runtimeOnly("com.mysql:mysql-connector-j")
+    }
+
     tasks.withType<BootJar> {
         enabled = false
-    }
-}
-
-configureByTypeHaving("client") {
-    val feignClientVersion = "4.1.0"
-    dependencies {
-        implementation("org.springframework.cloud:spring-cloud-starter-openfeign:$feignClientVersion")
     }
 }

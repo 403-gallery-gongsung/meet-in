@@ -2,8 +2,6 @@ rootProject.name = "meet-in"
 
 include(":application")
 
-include("common:exception")
-
 include("hello-world:api")
 include("hello-world:internal-api")
 include("hello-world:internal-api-client")
@@ -13,26 +11,15 @@ include("hello-world:persist")
 include("hello-world:service")
 include("hello-world:use-case")
 
-include("company")
-include("company:model")
-include("company:repository")
-include("company:api")
-include("company:use-case")
-include("company:service")
-include("company:persist")
-include("company:internal-api")
-include("company:internal-api-client")
+include("auth:api")
+include("auth:internal-api-client")
+include("auth:model")
+include("auth:service")
+include("auth:persist")
+include("auth:repository")
+include("auth:use-case")
 
-include("user:api")
-include("user:internal-api")
-include("user:repository")
-include("user:internal-api-client")
-include("user:service")
-include("user:model")
-include("user:use-case")
-include("user:persist")
-
-include("user:application")
+include("auth:application")
 
 pluginManagement {
     buildscript {

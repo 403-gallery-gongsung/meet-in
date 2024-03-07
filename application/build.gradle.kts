@@ -1,3 +1,3 @@
 dependencies {
-    implementation(project(":user:internal-api"))
+    implementation(project(":auth:api"))
 }
