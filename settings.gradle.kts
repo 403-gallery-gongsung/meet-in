@@ -34,6 +34,17 @@ include("user:persist")
 
 include("user:application")
 
+include("auth:api")
+include("auth:internal-api")
+include("auth:repository")
+include("auth:internal-api-client")
+include("auth:service")
+include("auth:model")
+include("auth:use-case")
+include("auth:persist")
+
+include("auth:application")
+
 pluginManagement {
     buildscript {
         repositories {

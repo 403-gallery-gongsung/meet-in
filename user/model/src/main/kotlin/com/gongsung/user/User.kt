@@ -10,9 +10,8 @@ interface User : UserIdentity, UserProps {
             props: UserProps,
         ) = UserImpl(
             identity.userIdentity,
-            props.loginId,
+            props.accountId,
             props.email,
-            props.password,
             props.name,
             props.birthDate,
             props.gender,
@@ -30,9 +29,8 @@ interface UserIdentity {
 }
 
 interface UserProps {
-    val loginId: String
+    val accountId: Long
     val email: String
-    val password: String
     val name: String
     val birthDate: LocalDate?
     val gender: Gender?
@@ -40,14 +38,13 @@ interface UserProps {
 
     companion object {
         fun of(
-            loginId: String,
+            accountId: Long,
             email: String,
-            password: String,
             name: String,
             birthDate: LocalDate,
             gender: Gender,
             introduce: String,
-        ): UserProps = UserPropsImpl(loginId, email, password, name, birthDate, gender, introduce)
+        ): UserProps = UserPropsImpl(accountId, email, name, birthDate, gender, introduce)
     }
 }
 
@@ -56,9 +53,8 @@ data class UserIdentityImpl(
 ) : UserIdentity
 
 data class UserPropsImpl(
-    override val loginId: String,
+    override val accountId: Long,
     override val email: String,
-    override val password: String,
     override val name: String,
     override val birthDate: LocalDate,
     override val gender: Gender,
@@ -67,9 +63,8 @@ data class UserPropsImpl(
 
 data class UserImpl(
     override val userIdentity: Long,
-    override val loginId: String,
+    override val accountId: Long,
     override val email: String,
-    override val password: String,
     override val name: String,
     override val birthDate: LocalDate?,
     override val gender: Gender?,

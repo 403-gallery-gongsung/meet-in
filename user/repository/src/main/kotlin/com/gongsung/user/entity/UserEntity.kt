@@ -1,6 +1,7 @@
 package com.gongsung.user.entity
 
 import com.gongsung.user.User
+import com.gongsung.user.UserIdentity
 import com.gongsung.user.UserProps
 import com.gongsung.user.enums.Gender
 import jakarta.persistence.Column
@@ -27,18 +28,11 @@ data class UserEntity(
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = JpaConstants.NOT_YET,
-    @Column(nullable = false, length = 30, updatable = false)
-    override val loginId: String = "",
+    val id: Long = JpaConstants.NOT_YET_SAVED,
+    override val accountId: Long,
     @field:Email(message = "Email 형식이 아닙니다.")
     @Column(nullable = false, length = 30)
     override val email: String = "",
-    @Column(nullable = false, length = 30)
-    @field:Pattern(
-        regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=\\S+$).{8,15}$",
-        message = "영어 대소문자 및 숫자, 특수기호가 1개 이상 포함된 8~15길이의 비밀번호여야 합니다.",
-    )
-    override val password: String = "",
     @Column(nullable = false, length = 10)
     override val name: String = "",
     @Temporal(TemporalType.DATE)
@@ -50,9 +44,8 @@ data class UserEntity(
     companion object {
         fun ofProps(userProps: UserProps) =
             UserEntity(
-                loginId = userProps.loginId,
+                accountId = userProps.accountId,
                 email = userProps.email,
-                password = userProps.password,
                 name = userProps.name,
                 birthDate = userProps.birthDate,
                 gender = userProps.gender,
@@ -60,12 +53,6 @@ data class UserEntity(
             )
     }
 
-    private fun LocalDate.formatDate(): String = this.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-
     override val userIdentity: Long
         get() = id ?: throw RuntimeException("There is no user")
-}
-
-object JpaConstants {
-    const val NOT_YET = -1L
 }
