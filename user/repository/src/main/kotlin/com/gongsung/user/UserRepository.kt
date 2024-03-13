@@ -2,8 +2,8 @@ package com.gongsung.user
 
 import com.gongsung.user.entity.QUserEntity.userEntity
 import com.gongsung.user.entity.UserEntity
-import com.gongsung.user.persist.CommandUserPersist
-import com.gongsung.user.persist.QueryUserPersist
+import com.gongsung.user.persist.user.CommandUserPersist
+import com.gongsung.user.persist.user.QueryUserPersist
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.querydsl.jpa.impl.JPAUpdateClause
 import jakarta.persistence.EntityManager
@@ -37,8 +37,6 @@ class UserRepository(
     override fun updateUser(user: User): User {
         JPAUpdateClause(entityManager, userEntity)
             .where(userEntity.id.eq(user.userIdentity))
-            .set(userEntity.loginId, user.loginId)
-            .set(userEntity.password, user.password)
             .set(userEntity.email, user.email)
             .set(userEntity.birthDate, user.birthDate)
             .set(userEntity.gender, user.gender)

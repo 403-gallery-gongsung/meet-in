@@ -1,4 +1,4 @@
-package com.gongsung.user.persist
+package com.gongsung.user.persist.user
 
 import com.gongsung.user.User
 

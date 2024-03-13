@@ -1,8 +1,8 @@
 package com.gongsung.user
 
 import com.gongsung.user.enums.Gender
-import com.gongsung.user.persist.CommandUserPersist
-import com.gongsung.user.persist.QueryUserPersist
+import com.gongsung.user.persist.user.CommandUserPersist
+import com.gongsung.user.persist.user.QueryUserPersist
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -17,8 +17,6 @@ class UserServiceTest {
 //        given
         val userProps =
             UserProps.of(
-                loginId = "yeollow",
-                password = "Password123!",
                 email = "gongsung123@gmail.com",
                 name = "knu",
                 birthDate = LocalDate.of(1998, 1, 5),
@@ -59,8 +57,6 @@ class UserServiceTest {
 //        given
         val incorrectEmailUserProps =
             UserProps.of(
-                loginId = "yeollow",
-                password = "Password123!",
                 email = "gongsung123",
                 name = "knu",
                 birthDate = LocalDate.of(1998, 1, 5),
@@ -70,8 +66,6 @@ class UserServiceTest {
 
         val incorrectPasswordUserProps =
             UserProps.of(
-                loginId = "yeollow",
-                password = "password123!",
                 email = "gongsung123@gmail.com",
                 name = "knu",
                 birthDate = LocalDate.of(1998, 1, 5),
@@ -113,8 +107,6 @@ class UserServiceTest {
                 identity = UserIdentity.of(id),
                 props =
                     UserProps.of(
-                        loginId = "yeollow",
-                        password = "Yeollow123!@#",
                         email = "gongsung123@gmail.com",
                         name = "knu",
                         birthDate = LocalDate.of(1998, 1, 5),
@@ -146,8 +138,6 @@ class UserServiceTest {
                 identity = UserIdentity.of(id),
                 props =
                     UserProps.of(
-                        loginId = "ljy2784437",
-                        password = "jyLee2784437!@#",
                         email = "gongsung123@gmail.com",
                         name = "knu",
                         birthDate = LocalDate.of(1998, 1, 5),
@@ -161,8 +151,6 @@ class UserServiceTest {
                 identity = UserIdentity.of(id),
                 props =
                     UserProps.of(
-                        loginId = "yeollow",
-                        password = "Yeollow1588!@#",
                         email = "gongsung123@gmail.com",
                         name = "knu",
                         birthDate = LocalDate.of(1998, 1, 5),

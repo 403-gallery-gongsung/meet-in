@@ -1,2 +1,2 @@
   api-client:
-    user: 'http://localhost'
+    user: http://localhost:8082
